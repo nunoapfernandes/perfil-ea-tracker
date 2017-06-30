@@ -28,6 +28,7 @@ CREATE TABLE IF NOT EXISTS `trackdb`.`user` (
   `birthday` DATE NULL,
   `gender` ENUM('Male', 'Female') NULL,
   `password` VARCHAR(256) NOT NULL,
+  `image_path` VARCHAR(75) NULL,
   PRIMARY KEY (`id_user`))
 ENGINE = InnoDB;
 
@@ -66,7 +67,7 @@ CREATE TABLE IF NOT EXISTS `trackdb`.`user_has_movie` (
   `user_id` INT NOT NULL,
   `movie_id` INT NOT NULL,
   `watched` TINYINT NOT NULL,
-  `wathclist` TINYINT NOT NULL,
+  `watchlist` TINYINT NOT NULL,
   `rating` INT NULL,
   `comment` VARCHAR(255) NULL,
   PRIMARY KEY (`user_id`, `movie_id`),
@@ -93,7 +94,6 @@ DROP TABLE IF EXISTS `trackdb`.`show` ;
 CREATE TABLE IF NOT EXISTS `trackdb`.`show` (
   `id_show` INT NOT NULL AUTO_INCREMENT,
   `title` VARCHAR(75) NOT NULL,
-  `year` DATE NULL,
   `slug` VARCHAR(255) NOT NULL,
   `imdb` VARCHAR(45) NULL,
   `tmdb` VARCHAR(45) NULL,
@@ -269,11 +269,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `trackdb`.`show_has_Genre`
+-- Table `trackdb`.`show_has_genre`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `trackdb`.`show_has_Genre` ;
+DROP TABLE IF EXISTS `trackdb`.`show_has_genre` ;
 
-CREATE TABLE IF NOT EXISTS `trackdb`.`show_has_Genre` (
+CREATE TABLE IF NOT EXISTS `trackdb`.`show_has_genre` (
   `show_id` INT NOT NULL,
   `genre_id` INT NOT NULL,
   PRIMARY KEY (`show_id`, `genre_id`),
@@ -298,18 +298,18 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `trackdb`.`movie_has_genre` ;
 
 CREATE TABLE IF NOT EXISTS `trackdb`.`movie_has_genre` (
-  `movie_id_movie` INT NOT NULL,
-  `genre_id_genre` INT NOT NULL,
-  PRIMARY KEY (`movie_id_movie`, `genre_id_genre`),
-  INDEX `fk_movie_has_genre_genre1_idx` (`genre_id_genre` ASC),
-  INDEX `fk_movie_has_genre_movie1_idx` (`movie_id_movie` ASC),
+  `movie_id` INT NOT NULL,
+  `genre_id` INT NOT NULL,
+  PRIMARY KEY (`movie_id`, `genre_id`),
+  INDEX `fk_movie_has_genre_genre1_idx` (`genre_id` ASC),
+  INDEX `fk_movie_has_genre_movie1_idx` (`movie_id` ASC),
   CONSTRAINT `fk_movie_has_genre_movie1`
-    FOREIGN KEY (`movie_id_movie`)
+    FOREIGN KEY (`movie_id`)
     REFERENCES `trackdb`.`movie` (`id_movie`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_movie_has_genre_genre1`
-    FOREIGN KEY (`genre_id_genre`)
+    FOREIGN KEY (`genre_id`)
     REFERENCES `trackdb`.`genre` (`id_genre`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
