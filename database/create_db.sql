@@ -200,11 +200,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `trackdb`.`season_has_user`
+-- Table `trackdb`.`user_has_season`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `trackdb`.`season_has_user` ;
+DROP TABLE IF EXISTS `trackdb`.`user_has_season` ;
 
-CREATE TABLE IF NOT EXISTS `trackdb`.`season_has_user` (
+CREATE TABLE IF NOT EXISTS `trackdb`.`user_has_season` (
   `season_id` INT NOT NULL,
   `user_id` INT NOT NULL,
   `watched` TINYINT NOT NULL,
@@ -229,11 +229,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `trackdb`.`episode_has_user`
+-- Table `trackdb`.`user_has_episode`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `trackdb`.`episode_has_user` ;
+DROP TABLE IF EXISTS `trackdb`.`user_has_episode` ;
 
-CREATE TABLE IF NOT EXISTS `trackdb`.`episode_has_user` (
+CREATE TABLE IF NOT EXISTS `trackdb`.`user_has_episode` (
   `episode_id` INT NOT NULL,
   `user_id` INT NOT NULL,
   `watched` TINYINT NOT NULL,
