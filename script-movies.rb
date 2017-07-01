@@ -6,7 +6,7 @@ module Trakt
 
 	class ConnectionData
 
-		attr_accessor :headers, :response, :type
+		attr_accessor :headers, :response
 
 		def initialize
 			@headers = {
@@ -37,75 +37,62 @@ module Trakt
 
     class App
 
-        attr_accessor :response
-
         def initialize
-            @response = nil
 			@client = Mysql2::Client.new(:host => "localhost", :username => "root", :password => "123", :database => "trackdb")
         end
 
 		def insert_into_db(movie)
-			@title = movie["title"]
-			@slug = movie["ids"]["slug"]
-			@imdb = movie["ids"]["imdb"]
-			@tmdb = movie["ids"]["tmdb"]
-			@tagline = movie["tagline"]
-			@overview = movie["overview"]
-			@released = movie["released"]
-			@runtime = movie["runtime"]
-			@trailer = movie["trailer"]
-			@homepage = movie["homepage"]
-			@rating = movie["rating"]
-			@language = movie["language"]
-			@genres = movie["genres"]
-			@certification = movie["certification"]
-			
-			@genre_ids = get_genre_ids(@genres)
+			title = movie["title"]
+			slug = movie["ids"]["slug"]
+			imdb = movie["ids"]["imdb"]
+			tmdb = movie["ids"]["tmdb"]
+			tagline = movie["tagline"]
+			overview = movie["overview"]
+			released = movie["released"]
+			runtime = movie["runtime"]
+			trailer = movie["trailer"]
+			homepage = movie["homepage"]
+			rating = movie["rating"]
+			language = movie["language"]
+			genres = movie["genres"]
+			certification = movie["certification"]
 
-			statement = @client.prepare("INSERT INTO movie(title,slug,imdb,tmdb,tagline,overview,released,runtime,
-											trailer,homepage,rating_trakt,language,certification)
-								VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)")
-			result = statement.execute(@title,@slug,@imdb,@tmdb,@tagline,@overview,@released,@runtime,
-											@trailer,@homepage,@rating,@language,@certification)
+			request = 'https://api.themoviedb.org/3/movie/'+tmdb.to_s+'?api_key=29a3599e75cc9f95557283c10f79d4e4&language=en-US'
+			response = RestClient.get request
+			data = JSON.parse(response)
+			image_path = data["poster_path"]
+			
+			genre_ids = get_genre_ids(genres)
+
+			statement = @client.prepare("INSERT INTO media(title,tmdb,overview,rating_trakt,released,image_path,category)
+												VALUES(?,?,?,?,?,?,?)")
+			result = statement.execute(title,tmdb,overview,rating,released,image_path,1)
+			id_media = @client.last_id
+		
+			statement = @client.prepare("INSERT INTO movie(slug,imdb,tagline,trailer,runtime,homepage,language,certification,media_id)
+												VALUES(?,?,?,?,?,?,?,?,?)")
+			result = statement.execute(slug,imdb,tagline,trailer,runtime,homepage,language,certification,id_media)
 			id_movie = @client.last_id
 
 			statement = @client.prepare("INSERT INTO movie_has_genre(movie_id,genre_id) VALUES(?,?)")
-			@genres.each do |genre| 
-				result = statement.execute(id_movie,@genre_ids[genre])
+			genres.each do |genre| 
+				result = statement.execute(id_movie,genre_ids[genre])
 			end
 		end
 		
-		def print_movie_info(movie)
-			print "Title: " + @title = movie["title"] << "\n"
-			print "Slug: " + @slug = movie["ids"]["slug"] << "\n"
-			print "IMDB: " + @imdb = movie["ids"]["imdb"] << "\n"
-			print "TMDB: " + @tmdb = movie["ids"]["tmdb"].to_s << "\n"
-			print "Tagline: " + @tagline = movie["tagline"] << "\n"
-			print "Overview: " + @overview = movie["overview"] << "\n"
-			print "Released: " + @released = movie["released"] << "\n"
-			print "Runtime: " + @runtime = movie["runtime"].to_s << "\n"
-			print "Trailer: " + @trailer = movie["trailer"] << "\n"
-			print "Homepage: " + @homepage = movie["homepage"] << "\n"
-			print "Rating: " + @rating = movie["rating"].to_s << "\n"
-			print "Language: " + @language = movie["language"] << "\n"
-			print "Genres: " + @genres = movie["genres"].to_s << "\n"
-			print "Certification: " + @certification = movie["certification"] << "\n"
-		end
-
 		def get_genre_ids(genres)
-			@genre_ids = {}
+			genre_ids = {}
 			statement = @client.prepare("SELECT id_genre FROM genre WHERE genre = ?")
 			genres.each do |genre|
 				result = statement.execute(genre)
 				if result.size > 0
 					result.each do |name|
-						@genre_ids[genre] = name["id_genre"]
+						genre_ids[genre] = name["id_genre"]
 					end
 				end
 			end
-			@genre_ids
+			genre_ids
 		end
-
 
         def run
             connection_data = Trakt::ConnectionData.new
@@ -113,8 +100,7 @@ module Trakt
 			@movie = {}
 			@slugs.each { |slug| 
 				@movie = connection_data.get_info_from_slug(slug)
-				# insert_into_db(@movie)
-				print_movie_info(@movie)
+				insert_into_db(@movie)
 			}
 			
         end
