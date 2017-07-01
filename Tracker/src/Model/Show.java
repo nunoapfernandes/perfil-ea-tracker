@@ -1,6 +1,6 @@
+package Model;
+
 import javax.persistence.*;
-import java.text.DecimalFormat;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -10,25 +10,18 @@ import java.util.Set;
 
 @Entity
 @Table(name="show")
-public class Show {
+@PrimaryKeyJoinColumn(name="media_id", referencedColumnName = "id_media")
+public class Show extends Media {
     public Show(){}
 
     @Id
     @GeneratedValue
     @Column(name = "id_show")
     private int id_show;
-    @Column(name = "title")
-    private String title;
     @Column(name = "slug")
     private String slug;
     @Column(name = "imdb")
     private String imdb;
-    @Column(name = "tmdb")
-    private String tmdb;
-    @Column(name = "overview")
-    private String overview;
-    @Column(name = "first_aired")
-    private Date first_aired;
     @Column(name = "aired_day")
     private String aired_day;
     @Column(name = "aired_time")
@@ -49,14 +42,10 @@ public class Show {
     private String homepage;
     @Column(name = "status")
     private String status;
-    @Column(name = "rating_trakt")
-    private DecimalFormat rating_trankt;
     @Column(name = "language")
     private String language;
     @Column(name = "aired_episodes")
     private int aired_episodes;
-    @Column(name = "image_path")
-    private String image_path;
     @Column(name = "seasons")
     private int seasons;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "show")
@@ -68,9 +57,6 @@ public class Show {
             inverseJoinColumns = @JoinColumn(name = "genre_id")
     )
     private Set<Genre> showGenreList = new HashSet<Genre>();
-    @OneToMany(mappedBy = "primaryKey.movie", cascade = CascadeType.ALL)
-    private Set<UserShow> userShows = new HashSet<UserShow>();
-
 
     public int getId_show() {
         return id_show;
@@ -78,14 +64,6 @@ public class Show {
 
     public void setId_show(int id_show) {
         this.id_show = id_show;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     public String getSlug() {
@@ -102,30 +80,6 @@ public class Show {
 
     public void setImdb(String imdb) {
         this.imdb = imdb;
-    }
-
-    public String getTmdb() {
-        return tmdb;
-    }
-
-    public void setTmdb(String tmdb) {
-        this.tmdb = tmdb;
-    }
-
-    public String getOverview() {
-        return overview;
-    }
-
-    public void setOverview(String overview) {
-        this.overview = overview;
-    }
-
-    public Date getFirst_aired() {
-        return first_aired;
-    }
-
-    public void setFirst_aired(Date first_aired) {
-        this.first_aired = first_aired;
     }
 
     public String getAired_day() {
@@ -208,14 +162,6 @@ public class Show {
         this.status = status;
     }
 
-    public DecimalFormat getRating_trankt() {
-        return rating_trankt;
-    }
-
-    public void setRating_trankt(DecimalFormat rating_trankt) {
-        this.rating_trankt = rating_trankt;
-    }
-
     public String getLanguage() {
         return language;
     }
@@ -230,14 +176,6 @@ public class Show {
 
     public void setAired_episodes(int aired_episodes) {
         this.aired_episodes = aired_episodes;
-    }
-
-    public String getImage_path() {
-        return image_path;
-    }
-
-    public void setImage_path(String image_path) {
-        this.image_path = image_path;
     }
 
     public int getSeasons() {
@@ -264,15 +202,4 @@ public class Show {
         this.showGenreList = showGenreList;
     }
 
-    public Set<UserShow> getUserShows() {
-        return userShows;
-    }
-
-    public void setUserShows(Set<UserShow> userShows) {
-        this.userShows = userShows;
-    }
-
-    public void addUserShow(UserShow userShow){
-        this.userShows.add(userShow);
-    }
 }

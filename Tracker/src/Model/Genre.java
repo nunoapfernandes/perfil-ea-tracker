@@ -1,13 +1,14 @@
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+package Model;
+
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
 /**
  * Created by RicardoFerreira on 30/06/2017.
  */
+@Entity
+@Table(name = "genre")
 public class Genre {
     public Genre(){}
 
