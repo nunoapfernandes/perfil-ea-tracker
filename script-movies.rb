@@ -6,7 +6,7 @@ module Trakt
 
 	class ConnectionData
 
-		attr_accessor :headers, :response, :type
+		attr_accessor :headers, :response
 
 		def initialize
 			@headers = {
@@ -64,11 +64,14 @@ module Trakt
 			
 			genre_ids = get_genre_ids(genres)
 
-			statement = @client.prepare("INSERT INTO movie(title,slug,imdb,tmdb,tagline,overview,released,runtime,
-											trailer,homepage,rating_trakt,language,certification,image_path)
-								VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)")
-			result = statement.execute(title,slug,imdb,tmdb,tagline,overview,released,runtime,
-											trailer,homepage,rating,language,certification,image_path)
+			statement = @client.prepare("INSERT INTO media(title,tmdb,overview,rating_trakt,released,image_path,category)
+												VALUES(?,?,?,?,?,?,?)")
+			result = statement.execute(title,tmdb,overview,rating,released,image_path,1)
+			id_media = @client.last_id
+		
+			statement = @client.prepare("INSERT INTO movie(slug,imdb,tagline,trailer,runtime,homepage,language,certification,media_id)
+												VALUES(?,?,?,?,?,?,?,?,?)")
+			result = statement.execute(slug,imdb,tagline,trailer,runtime,homepage,language,certification,id_media)
 			id_movie = @client.last_id
 
 			statement = @client.prepare("INSERT INTO movie_has_genre(movie_id,genre_id) VALUES(?,?)")
