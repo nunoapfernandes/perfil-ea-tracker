@@ -40,12 +40,12 @@ DROP TABLE IF EXISTS `trackdb`.`media` ;
 
 CREATE TABLE IF NOT EXISTS `trackdb`.`media` (
   `id_media` INT NOT NULL AUTO_INCREMENT,
-  `title` VARCHAR(75) NOT NULL,
-  `tmdb` VARCHAR(45) NOT NULL,
-  `overview` VARCHAR(5000) NOT NULL,
-  `rating_trakt` DECIMAL(4,2) NOT NULL,
-  `released` DATE NOT NULL,
-  `image_path` VARCHAR(75) NOT NULL,
+  `title` VARCHAR(75) NULL,
+  `tmdb` VARCHAR(45) NULL,
+  `overview` VARCHAR(5000) NULL,
+  `rating_trakt` DECIMAL(4,2) NULL,
+  `released` DATE NULL,
+  `image_path` VARCHAR(75) NULL,
   `category` INT NOT NULL,
   `rating` DECIMAL(4,2) NULL,
   PRIMARY KEY (`id_media`))
@@ -178,6 +178,7 @@ CREATE TABLE IF NOT EXISTS `trackdb`.`episode` (
   `id_episode` INT NOT NULL AUTO_INCREMENT,
   `number` INT NOT NULL,
   `imdb` VARCHAR(45) NULL,
+  `runtime` INT NULL,
   `season_id` INT NOT NULL,
   `media_id` INT NOT NULL,
   PRIMARY KEY (`id_episode`),
@@ -255,6 +256,70 @@ CREATE TABLE IF NOT EXISTS `trackdb`.`movie_has_genre` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+USE `trackdb`;
+
+DELIMITER $$
+
+USE `trackdb`$$
+DROP TRIGGER IF EXISTS `trackdb`.`user_has_media_AFTER_INSERT` $$
+USE `trackdb`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `trackdb`.`user_has_media_AFTER_INSERT` AFTER INSERT ON `user_has_media` FOR EACH ROW
+BEGIN
+
+	DECLARE v_media_rating DECIMAL(4,2);
+    
+	SELECT rating INTO v_media_rating 
+		FROM media 
+			WHERE id_media = new.media_id;
+    
+    IF v_media_rating IS NULL THEN
+		UPDATE media 
+			SET rating = new.rating
+            WHERE id_media = new.media_id;
+    Else
+		UPDATE media
+			SET rating = ((new.rating+v_media_rating)/2)
+            WHERE id_media = new.media_id;
+    END IF;
+    
+END$$
+
+
+USE `trackdb`$$
+DROP TRIGGER IF EXISTS `trackdb`.`user_has_media_BEFORE_UPDATE` $$
+USE `trackdb`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `trackdb`.`user_has_media_BEFORE_UPDATE` BEFORE UPDATE ON `user_has_media` FOR EACH ROW
+BEGIN
+    DECLARE v_media_rating DECIMAL(4,2);
+    DECLARE v_media_rating_before DECIMAL(4,2);
+    DECLARE v_number_of_ratings INT DEFAULT 0;
+    
+	SELECT rating INTO v_media_rating 
+		FROM media 
+			WHERE id_media = new.media_id;
+	
+    SELECT count(*) INTO v_number_of_ratings FROM user_has_media 
+		INNER JOIN media ON media_id = id_media;
+    
+    IF v_number_of_ratings > 1 THEN 
+		SET v_media_rating_before = ((v_media_rating * 2)- old.rating);
+	ELSE 
+		SET v_media_rating_before = 0;
+    END IF;
+    
+    IF v_media_rating_before = 0 THEN
+		UPDATE media 
+			SET rating = new.rating 
+            WHERE id_media = new.media_id;
+	ELSE
+		UPDATE media
+			SET rating = ((v_media_rating_before + new.rating)/2)
+			WHERE id_media = new.media_id;
+	END IF;
+END$$
+
+
+DELIMITER ;
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
