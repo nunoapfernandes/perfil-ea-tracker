@@ -1,7 +1,7 @@
+package Model;
+
 import javax.persistence.*;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by RicardoFerreira on 30/06/2017.
@@ -10,6 +10,7 @@ import java.util.Set;
 @Entity
 @Table(name="user")
 public class User {
+
     public User(){}
 
     @Id
@@ -31,14 +32,8 @@ public class User {
     @Enumerated(EnumType.STRING)
     @Column(name = "gender")
     private GenderType gender;
-    @OneToMany(mappedBy = "primaryKey.userMovie", cascade = CascadeType.ALL)
-    private Set<UserMovie> userMovies = new HashSet<UserMovie>();
-    @OneToMany(mappedBy = "primaryKey.userShow", cascade = CascadeType.ALL)
-    private Set<UserShow> userShows = new HashSet<UserShow>();
-    @OneToMany(mappedBy = "primaryKey.userSeason", cascade = CascadeType.ALL)
-    private Set<UserSeason> userSeasons = new HashSet<UserSeason>();
-    @OneToMany(mappedBy = "primaryKey.userEpisode", cascade = CascadeType.ALL)
-    private Set<UserEpisode> userEpisodes = new HashSet<UserEpisode>();
+    @OneToMany(mappedBy = "primaryKey.user", cascade = CascadeType.ALL)
+    private List<UserMedia> userMedias = new LinkedList<UserMedia>() {};
 
     public int getId_user() {
         return id_user;
@@ -104,52 +99,16 @@ public class User {
         this.image_path = image_path;
     }
 
-    public Set<UserMovie> getUserMovies() {
-        return userMovies;
+    public List<UserMedia> getUserMedias() {
+        return userMedias;
     }
 
-    public void setUserMovies(Set<UserMovie> userMovies) {
-        this.userMovies = userMovies;
+    public void setUserMedias(List<UserMedia> userMedias) {
+        this.userMedias = userMedias;
     }
 
-    public void addUserMovie(UserMovie userMovie){
-        this.userMovies.add(userMovie);
-    }
-
-    public Set<UserShow> getUserShows() {
-        return userShows;
-    }
-
-    public void setUserShows(Set<UserShow> userShows) {
-        this.userShows = userShows;
-    }
-
-    public void addUserShow(UserShow userShow){
-        this.userShows.add(userShow);
-    }
-
-    public Set<UserSeason> getUserSeasons() {
-        return userSeasons;
-    }
-
-    public void setUserSeasons(Set<UserSeason> userSeasons) {
-        this.userSeasons = userSeasons;
-    }
-
-    public void addUserSeason(UserSeason userSeason){
-        this.userSeasons.add(userSeason);
-    }
-
-    public Set<UserEpisode> getUserEpisodes() {
-        return userEpisodes;
-    }
-
-    public void setUserEpisodes(Set<UserEpisode> userEpisodes) {
-        this.userEpisodes = userEpisodes;
-    }
-
-    public void addUserEpisode(UserEpisode userEpisode){
-        this.userEpisodes.add(userEpisode);
+    public void addUserMedia(UserMedia userMedia){
+        this.userMedias.add(userMedia);
     }
 }
 

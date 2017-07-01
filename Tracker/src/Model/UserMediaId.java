@@ -1,14 +1,20 @@
+package Model;
+
+import Model.Media;
+import Model.User;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Embeddable;
 import javax.persistence.ManyToOne;
+import java.io.Serializable;
 
 /**
- * Created by RicardoFerreira on 30/06/2017.
+ * Created by RicardoFerreira on 01/07/2017.
  */
 @Embeddable
-public class UserEpisodeId {
+public class UserMediaId implements Serializable {
     private User user;
-    private Episode episode;
+    private Media media;
 
     @ManyToOne(cascade = CascadeType.ALL)
     public User getUser() {
@@ -20,11 +26,11 @@ public class UserEpisodeId {
     }
 
     @ManyToOne(cascade = CascadeType.ALL)
-    public Episode getEpisode() {
-        return episode;
+    public Media getMedia() {
+        return media;
     }
 
-    public void setEpisode(Episode episode) {
-        this.episode = episode;
+    public void setMedia(Media media) {
+        this.media = media;
     }
 }
