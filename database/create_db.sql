@@ -34,53 +34,45 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
+-- Table `trackdb`.`media`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `trackdb`.`media` ;
+
+CREATE TABLE IF NOT EXISTS `trackdb`.`media` (
+  `id_media` INT NOT NULL AUTO_INCREMENT,
+  `title` VARCHAR(75) NOT NULL,
+  `tmdb` VARCHAR(45) NOT NULL,
+  `overview` VARCHAR(5000) NOT NULL,
+  `rating_trakt` DECIMAL(4,2) NOT NULL,
+  `released` DATE NOT NULL,
+  `image_path` VARCHAR(75) NOT NULL,
+  `category` INT NOT NULL,
+  `rating` DECIMAL(4,2) NULL,
+  PRIMARY KEY (`id_media`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
 -- Table `trackdb`.`movie`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `trackdb`.`movie` ;
 
 CREATE TABLE IF NOT EXISTS `trackdb`.`movie` (
   `id_movie` INT NOT NULL AUTO_INCREMENT,
-  `title` VARCHAR(75) NOT NULL,
   `slug` VARCHAR(255) NOT NULL,
   `imdb` VARCHAR(45) NULL,
-  `tmdb` VARCHAR(45) NULL,
   `tagline` VARCHAR(150) NULL,
-  `overview` VARCHAR(5000) NULL,
-  `released` DATE NULL,
   `trailer` VARCHAR(255) NULL,
   `runtime` INT NULL,
   `homepage` VARCHAR(255) NULL,
-  `rating_trakt` DECIMAL(4,2) NULL,
   `language` VARCHAR(5) NULL,
   `certification` VARCHAR(10) NULL,
-  `image_path` VARCHAR(75) NULL,
-  PRIMARY KEY (`id_movie`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `trackdb`.`user_has_movie`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `trackdb`.`user_has_movie` ;
-
-CREATE TABLE IF NOT EXISTS `trackdb`.`user_has_movie` (
-  `user_id` INT NOT NULL,
-  `movie_id` INT NOT NULL,
-  `watched` TINYINT NOT NULL,
-  `watchlist` TINYINT NOT NULL,
-  `rating` INT NULL,
-  `comment` VARCHAR(255) NULL,
-  PRIMARY KEY (`user_id`, `movie_id`),
-  INDEX `fk_user_has_movie_movie1_idx` (`movie_id` ASC),
-  INDEX `fk_user_has_movie_user_idx` (`user_id` ASC),
-  CONSTRAINT `fk_user_has_movie_user`
-    FOREIGN KEY (`user_id`)
-    REFERENCES `trackdb`.`user` (`id_user`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_user_has_movie_movie1`
-    FOREIGN KEY (`movie_id`)
-    REFERENCES `trackdb`.`movie` (`id_movie`)
+  `media_id` INT NOT NULL,
+  PRIMARY KEY (`id_movie`),
+  INDEX `fk_movie_media1_idx` (`media_id` ASC),
+  CONSTRAINT `fk_movie_media1`
+    FOREIGN KEY (`media_id`)
+    REFERENCES `trackdb`.`media` (`id_media`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -93,12 +85,8 @@ DROP TABLE IF EXISTS `trackdb`.`show` ;
 
 CREATE TABLE IF NOT EXISTS `trackdb`.`show` (
   `id_show` INT NOT NULL AUTO_INCREMENT,
-  `title` VARCHAR(75) NOT NULL,
   `slug` VARCHAR(255) NOT NULL,
   `imdb` VARCHAR(45) NULL,
-  `tmdb` VARCHAR(45) NULL,
-  `overview` VARCHAR(5000) NULL,
-  `first_aired` DATE NULL,
   `aired_day` VARCHAR(20) NULL,
   `aired_time` VARCHAR(5) NULL,
   `aired_timezone` VARCHAR(20) NULL,
@@ -109,39 +97,45 @@ CREATE TABLE IF NOT EXISTS `trackdb`.`show` (
   `trailer` VARCHAR(255) NULL,
   `homepage` VARCHAR(255) NULL,
   `status` VARCHAR(20) NULL,
-  `rating_trakt` DECIMAL(4,2) NULL,
   `language` VARCHAR(5) NULL,
   `aired_episodes` INT NULL,
-  `image_path` VARCHAR(75) NULL,
   `seasons` INT NOT NULL,
-  PRIMARY KEY (`id_show`))
+  `media_id` INT NOT NULL,
+  PRIMARY KEY (`id_show`),
+  INDEX `fk_show_media1_idx` (`media_id` ASC),
+  CONSTRAINT `fk_show_media1`
+    FOREIGN KEY (`media_id`)
+    REFERENCES `trackdb`.`media` (`id_media`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `trackdb`.`user_has_show`
+-- Table `trackdb`.`user_has_media`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `trackdb`.`user_has_show` ;
+DROP TABLE IF EXISTS `trackdb`.`user_has_media` ;
 
-CREATE TABLE IF NOT EXISTS `trackdb`.`user_has_show` (
+CREATE TABLE IF NOT EXISTS `trackdb`.`user_has_media` (
   `user_id` INT NOT NULL,
-  `show_id` INT NOT NULL,
+  `media_id` INT NOT NULL,
   `watched` TINYINT NOT NULL,
   `watchlist` TINYINT NULL,
   `rating` INT NULL,
   `comment` VARCHAR(255) NULL,
-  `seasons_watched` INT NOT NULL,
-  PRIMARY KEY (`user_id`, `show_id`),
-  INDEX `fk_user_has_show_show1_idx` (`show_id` ASC),
+  `add_date` DATETIME NOT NULL,
+  `view_date` DATETIME NULL,
+  PRIMARY KEY (`user_id`, `media_id`),
   INDEX `fk_user_has_show_user1_idx` (`user_id` ASC),
+  INDEX `fk_user_has_show_media1_idx` (`media_id` ASC),
   CONSTRAINT `fk_user_has_show_user1`
     FOREIGN KEY (`user_id`)
     REFERENCES `trackdb`.`user` (`id_user`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_user_has_show_show1`
-    FOREIGN KEY (`show_id`)
-    REFERENCES `trackdb`.`show` (`id_show`)
+  CONSTRAINT `fk_user_has_show_media1`
+    FOREIGN KEY (`media_id`)
+    REFERENCES `trackdb`.`media` (`id_media`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -155,19 +149,21 @@ DROP TABLE IF EXISTS `trackdb`.`season` ;
 CREATE TABLE IF NOT EXISTS `trackdb`.`season` (
   `id_season` INT NOT NULL AUTO_INCREMENT,
   `number` INT NOT NULL,
-  `rating_trakt` DECIMAL(4,2) NULL,
-  `tmdb` VARCHAR(45) NULL,
   `episodes` INT NULL,
   `aired_episodes` INT NULL,
-  `title` VARCHAR(75) NOT NULL,
-  `overview` VARCHAR(5000) NULL,
-  `image_path` VARCHAR(75) NULL,
   `show_id` INT NOT NULL,
+  `media_id` INT NOT NULL,
   PRIMARY KEY (`id_season`),
   INDEX `fk_season_show1_idx` (`show_id` ASC),
+  INDEX `fk_season_media1_idx` (`media_id` ASC),
   CONSTRAINT `fk_season_show1`
     FOREIGN KEY (`show_id`)
     REFERENCES `trackdb`.`show` (`id_show`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_season_media1`
+    FOREIGN KEY (`media_id`)
+    REFERENCES `trackdb`.`media` (`id_media`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -181,76 +177,20 @@ DROP TABLE IF EXISTS `trackdb`.`episode` ;
 CREATE TABLE IF NOT EXISTS `trackdb`.`episode` (
   `id_episode` INT NOT NULL AUTO_INCREMENT,
   `number` INT NOT NULL,
-  `title` VARCHAR(75) NOT NULL,
   `imdb` VARCHAR(45) NULL,
-  `tmdb` VARCHAR(45) NULL,
-  `first_aired` DATE NULL,
-  `overview` VARCHAR(5000) NULL,
-  `rating_trakt` VARCHAR(45) NULL,
-  `image_path` VARCHAR(75) NULL,
   `season_id` INT NOT NULL,
+  `media_id` INT NOT NULL,
   PRIMARY KEY (`id_episode`),
   INDEX `fk_episode_season1_idx` (`season_id` ASC),
+  INDEX `fk_episode_media1_idx` (`media_id` ASC),
   CONSTRAINT `fk_episode_season1`
     FOREIGN KEY (`season_id`)
     REFERENCES `trackdb`.`season` (`id_season`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `trackdb`.`user_has_season`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `trackdb`.`user_has_season` ;
-
-CREATE TABLE IF NOT EXISTS `trackdb`.`user_has_season` (
-  `season_id` INT NOT NULL,
-  `user_id` INT NOT NULL,
-  `watched` TINYINT NOT NULL,
-  `watchlist` TINYINT NULL,
-  `episodes_watched` INT NOT NULL,
-  `rating` INT NULL,
-  `comment` VARCHAR(255) NULL,
-  PRIMARY KEY (`season_id`, `user_id`),
-  INDEX `fk_season_has_user_user1_idx` (`user_id` ASC),
-  INDEX `fk_season_has_user_season1_idx` (`season_id` ASC),
-  CONSTRAINT `fk_season_has_user_season1`
-    FOREIGN KEY (`season_id`)
-    REFERENCES `trackdb`.`season` (`id_season`)
-    ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_season_has_user_user1`
-    FOREIGN KEY (`user_id`)
-    REFERENCES `trackdb`.`user` (`id_user`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `trackdb`.`user_has_episode`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `trackdb`.`user_has_episode` ;
-
-CREATE TABLE IF NOT EXISTS `trackdb`.`user_has_episode` (
-  `episode_id` INT NOT NULL,
-  `user_id` INT NOT NULL,
-  `watched` TINYINT NOT NULL,
-  `watchlist` TINYINT NULL,
-  `rating` INT NULL,
-  `comment` VARCHAR(255) NULL,
-  PRIMARY KEY (`episode_id`, `user_id`),
-  INDEX `fk_episode_has_user_user1_idx` (`user_id` ASC),
-  INDEX `fk_episode_has_user_episode1_idx` (`episode_id` ASC),
-  CONSTRAINT `fk_episode_has_user_episode1`
-    FOREIGN KEY (`episode_id`)
-    REFERENCES `trackdb`.`episode` (`id_episode`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_episode_has_user_user1`
-    FOREIGN KEY (`user_id`)
-    REFERENCES `trackdb`.`user` (`id_user`)
+  CONSTRAINT `fk_episode_media1`
+    FOREIGN KEY (`media_id`)
+    REFERENCES `trackdb`.`media` (`id_media`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
