@@ -4,7 +4,7 @@
     <facet type="hibernate" name="Hibernate">
       <configuration>
         <datasource-map>
-          <unit-entry name="hibernate.cfg.xml" value="f381a0d1-aa43-4f81-b15d-1bef72cc9407" />
+          <unit-entry name="hibernate.cfg.xml" value="54f69eca-9f49-4175-9573-98b646e077bf" />
         </datasource-map>
         <naming-strategy-map />
         <deploymentDescriptor name="hibernate.cfg.xml" url="file://$MODULE_DIR$/src/hibernate.cfg.xml" />
@@ -32,6 +32,6 @@
     <orderEntry type="library" scope="PROVIDED" name="Jersey-2.2" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="JBoss 10.1.0.Final" level="application_server_libraries" />
     <orderEntry type="library" name="Java EE 6-Java EE 6" level="project" />
-    <orderEntry type="library" name="mysql:mysql-connector-java:6.0.6" level="project" />
+    <orderEntry type="library" name="org.postgresql:postgresql:9.4-1201-jdbc4" level="project" />
   </component>
 </module>

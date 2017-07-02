@@ -22,6 +22,8 @@ public class MovieDAO {
     }
 
     public static Movie getMovie(int movieid){
+        SessionFactory factory = HibernateUtil.getSessionFactory();
+        Session session = factory.openSession();
         Query query = session.createQuery("select m from Movie m where m.id_movie = :movieid");
         query.setParameter("movieid", movieid);
 

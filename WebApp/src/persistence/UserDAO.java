@@ -80,11 +80,11 @@ public class UserDAO {
 
     public static void userWatched(Media media, User user, boolean state){
         UserMedia userMedia = new UserMedia();
-        userMedia.setUser_id(user.getId_user());
+        //userMedia.setUser_id(user.getId_user());
         userMedia.setWatched(state);
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         userMedia.setView_date(timestamp);
-        userMedia.setMedia_id(media.getId_media());
+        //userMedia.setMedia_id(media.getId_media());
         userMedia.setWatchlist(false);
 
         session.saveOrUpdate(userMedia);
@@ -94,10 +94,10 @@ public class UserDAO {
 
     public static void userWatchList(Media media, User user, boolean state){
         UserMedia userMedia = new UserMedia();
-        userMedia.setUser_id(user.getId_user());
+        //userMedia.setUser_id(user.getId_user());
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         userMedia.setAdd_date(timestamp);
-        userMedia.setMedia_id(media.getId_media());
+        //userMedia.setMedia_id(media.getId_media());
         userMedia.setWatchlist(state);
 
         session.saveOrUpdate(userMedia);
@@ -107,8 +107,8 @@ public class UserDAO {
 
     public static void userComment(Media media, User user, String comment){
         UserMedia userMedia = new UserMedia();
-        userMedia.setUser_id(user.getId_user());
-        userMedia.setMedia_id(media.getId_media());
+        //userMedia.setUser_id(user.getId_user());
+        //userMedia.setMedia_id(media.getId_media());
         userMedia.setComment(comment);
 
         session.saveOrUpdate(userMedia);
@@ -119,8 +119,8 @@ public class UserDAO {
 
     public static void userRate(Media media, User user, int rate){
         UserMedia userMedia = new UserMedia();
-        userMedia.setUser_id(user.getId_user());
-        userMedia.setMedia_id(media.getId_media());
+        //userMedia.setUser_id(user.getId_user());
+        //userMedia.setMedia_id(media.getId_media());
         userMedia.setRating(rate);
 
         session.saveOrUpdate(userMedia);

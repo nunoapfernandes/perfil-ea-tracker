@@ -54,11 +54,13 @@ public class MediaBean implements MediaBeanLocal{
 
     @Override
     public List<Media> listShowSeasons(Show show) {
-        return MediaDAO.listShowSeasons(show.getId_show());
+        return null;
+        //return MediaDAO.listShowSeasons(show.getId_show());
     }
 
     @Override
     public List<Media> listSeasonEpisodes(Season season) {
-        return MediaDAO.listSeasonEpisodes(season.getId_season());
+        return null;
+        //return MediaDAO.listSeasonEpisodes(season.getId_season());
     }
 }

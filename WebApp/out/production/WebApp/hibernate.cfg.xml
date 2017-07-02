@@ -4,20 +4,15 @@
 
 <hibernate-configuration>
     <session-factory>
-        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
-        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQL9Dialect</property>
+        <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
         <property name="hibernate.connection.url">
-            jdbc:mysql://localhost:3306/trackdb?zeroDateTimeBehavior=convertToNull&amp;useSSL=false&amp;useJDBCCompliantTimezoneShift=true&amp;serverTimezone=UTC
-        </property>
-        <property name="hibernate.connection.username">
-            root
-        </property>
-        <property name="hibernate.connection.password">
-            root
+            jdbc:postgresql://localhost:5432/trackdb
         </property>
         <property name="hibernate.hbm2ddl.auto">
             update
         </property>
+        <property name="hibernate.show_sql">true</property>
 
         <mapping class="model.Media"/>
         <mapping class="model.User"/>

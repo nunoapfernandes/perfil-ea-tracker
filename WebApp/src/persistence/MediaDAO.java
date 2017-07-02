@@ -50,6 +50,8 @@ public class MediaDAO {
 
     public static List<Media> listAllMedia(){
         List allMedia;
+        SessionFactory factory = HibernateUtil.getSessionFactory();
+        Session session = factory.openSession();
         Query query = session.createQuery("from Media");
         allMedia = query.getResultList();
 

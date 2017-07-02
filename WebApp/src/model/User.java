@@ -9,14 +9,14 @@ import java.util.*;
  */
 
 @Entity
-@Table(name="user")
+@Table(name="usertr")
 public class User implements Serializable{
 
     //public User(){}
 
     @Id
-    @GeneratedValue
-    @Column(name = "id_user")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_user", unique = true, nullable = false)
     private int id_user;
     @Column(name = "username")
     private String username;
@@ -33,8 +33,15 @@ public class User implements Serializable{
     @Enumerated(EnumType.STRING)
     @Column(name = "gender")
     private GenderType gender;
-    @OneToMany(mappedBy = "primaryKey.user", cascade = CascadeType.ALL)
-    private List<UserMedia> userMedias = new LinkedList<UserMedia>() {};
+
+    @OneToMany(mappedBy = "usertr", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<UserMedia> medias = new ArrayList<>();
+
+
+/*
+    @OneToMany(mappedBy = "primaryKey.user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<UserMedia> userMedia = new LinkedList<UserMedia>() {};
+*/
 
     public int getId_user() {
         return id_user;
@@ -100,16 +107,13 @@ public class User implements Serializable{
         this.image_path = image_path;
     }
 
-    public List<UserMedia> getUserMedias() {
-        return userMedias;
+    public List<UserMedia> getMedias() {
+        return medias;
     }
 
-    public void setUserMedias(List<UserMedia> userMedias) {
-        this.userMedias = userMedias;
+    public void setMedias(List<UserMedia> userMedias) {
+        this.medias = userMedias;
     }
 
-    public void addUserMedia(UserMedia userMedia){
-        this.userMedias.add(userMedia);
-    }
 }
 

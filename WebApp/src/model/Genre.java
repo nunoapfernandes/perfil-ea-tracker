@@ -2,10 +2,7 @@ package model;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by RicardoFerreira on 30/06/2017.
@@ -21,11 +18,16 @@ public class Genre implements Serializable{
     private int id_genre;
     @Column(name = "genre")
     private String genre;
-    @ManyToMany(mappedBy = "movieGenreList")
+
+    /*@ManyToMany(mappedBy = "movieGenreList")
     private List<Movie> moviesList = new ArrayList<Movie>();
 
     @ManyToMany(mappedBy = "genres")
     private Set<Show> shows = new HashSet<>();
+*/
+
+    @ManyToMany(mappedBy = "genres")
+    private List<Media> medias = new LinkedList<>();
 
     public int getId_genre() {
         return id_genre;
@@ -43,6 +45,7 @@ public class Genre implements Serializable{
         this.genre = genre;
     }
 
+    /*
     public List<Movie> getMoviesList() {
         return moviesList;
     }
@@ -57,5 +60,14 @@ public class Genre implements Serializable{
 
     public void setShowList(Set<Show> showList) {
         this.shows = showList;
+    }
+    */
+
+    public List<Media> getMedias() {
+        return medias;
+    }
+
+    public void setMedias(List<Media> medias) {
+        this.medias = medias;
     }
 }

@@ -3,10 +3,7 @@ package model;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.text.DecimalFormat;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by RicardoFerreira on 01/07/2017.
@@ -14,13 +11,13 @@ import java.util.Set;
 
 
 @Entity
+@Table(name = "media")
 @Inheritance(strategy=InheritanceType.JOINED)
-public abstract class Media implements Serializable {
-    public Media(){}
+public class Media implements Serializable {
 
     @Id
     @GeneratedValue
-    @Column (name = "id_media")
+    @Column(name = "id_media", unique = true, nullable = false)
     private int id_media;
     @Column (name = "title")
     private String title;
@@ -29,7 +26,7 @@ public abstract class Media implements Serializable {
     @Column (name = "overview")
     private String overview;
     @Column (name = "rating_trakt")
-    private DecimalFormat rating_trakt;
+    private BigDecimal rating_trakt;
     @Column (name = "released")
     private Date released;
     @Column (name = "image_path")
@@ -38,14 +35,32 @@ public abstract class Media implements Serializable {
     private int category;
     @Column (name = "rating")
     private BigDecimal rating;
-    @OneToMany(mappedBy = "primaryKey.media", cascade = CascadeType.ALL)
-    private Set<UserMedia> userMedia = new HashSet<UserMedia>();
 
-    public Integer getId_media() {
+    /*
+    @OneToMany(mappedBy = "primaryKey.media", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<UserMedia> userMedia = new LinkedList<>();
+    */
+
+
+    @OneToMany(mappedBy = "media", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<UserMedia> users = new ArrayList<>();
+
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<Genre> genres = new ArrayList<Genre>();
+
+    public List<Genre> getGenres() {
+        return genres;
+    }
+
+    public void setGenres(List<Genre> genres) {
+        this.genres = genres;
+    }
+
+    public int getId_media() {
         return id_media;
     }
 
-    public void setId_media(Integer id_media) {
+    public void setId_media(int id_media) {
         this.id_media = id_media;
     }
 
@@ -73,11 +88,11 @@ public abstract class Media implements Serializable {
         this.overview = overview;
     }
 
-    public DecimalFormat getRating_trakt() {
+    public BigDecimal getRating_trakt() {
         return rating_trakt;
     }
 
-    public void setRating_trakt(DecimalFormat rating_trakt) {
+    public void setRating_trakt(BigDecimal rating_trakt) {
         this.rating_trakt = rating_trakt;
     }
 
@@ -113,11 +128,11 @@ public abstract class Media implements Serializable {
         this.rating = rating;
     }
 
-    public Set<UserMedia> getUserMedia() {
-        return userMedia;
+    public List<UserMedia> getUsers() {
+        return users;
     }
 
-    public void setUserMedia(Set<UserMedia> userMedia) {
-        this.userMedia = userMedia;
+    public void setUsers(List<UserMedia> userMedia) {
+        this.users = userMedia;
     }
 }

@@ -21,7 +21,7 @@ public class HibernateUtil {
                     .applySettings(configuration.getProperties()).build();
 
             // builds a session factory from the service registry
-            sessionFactory = configuration.addAnnotatedClass(User.class).addAnnotatedClass(Movie.class).addAnnotatedClass(UserMedia.class).addAnnotatedClass(Show.class).addAnnotatedClass(Season.class).addAnnotatedClass(UserMediaId.class).addAnnotatedClass(Media.class).addAnnotatedClass(Episode.class).addAnnotatedClass(Genre.class).buildSessionFactory(serviceRegistry);
+            sessionFactory = configuration.addAnnotatedClass(User.class).addAnnotatedClass(Movie.class).addAnnotatedClass(UserMedia.class).addAnnotatedClass(Show.class).addAnnotatedClass(Season.class).addAnnotatedClass(Media.class).addAnnotatedClass(Episode.class).addAnnotatedClass(Genre.class).buildSessionFactory(serviceRegistry);
         }
 
         return sessionFactory;

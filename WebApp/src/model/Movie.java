@@ -2,10 +2,6 @@ package model;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 /**
  * Created by RicardoFerreira on 30/06/2017.
@@ -13,13 +9,8 @@ import java.util.Set;
 
 @Entity
 @Table(name="movie")
-@PrimaryKeyJoinColumn(name="media_id", referencedColumnName = "id_media")
 public class Movie extends Media implements Serializable{
 
-    //@Id
-    //@GeneratedValue
-    @Column(name = "id_movie")
-    private int id_movie;
     @Column(name = "slug")
     private String slug;
     @Column(name = "imdb")
@@ -36,13 +27,28 @@ public class Movie extends Media implements Serializable{
     private String language;
     @Column(name = "certification")
     private String certification;
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+
+
+    //@Column(name = "media_id", insertable = false, updatable = false)
+    //private int media_id;
+    /*@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(
             name = "movie_has_genre",
-            joinColumns = @JoinColumn(name = "movie_id"),
+            joinColumns = @JoinColumn(name = "media_id"),
             inverseJoinColumns = @JoinColumn(name = "genre_id")
     )
     private List<Genre> movieGenreList = new ArrayList<Genre>();
+    */
+/*
+    public int getMedia_id() {
+        return media_id;
+    }
+
+    public void setMedia_id(int media_id) {
+        this.media_id = media_id;
+    }
+
+
 
     public int getId_movie() {
         return id_movie;
@@ -51,7 +57,7 @@ public class Movie extends Media implements Serializable{
     public void setId_movie(int id_movie) {
         this.id_movie = id_movie;
     }
-
+*/
     public String getSlug() {
         return slug;
     }
@@ -116,12 +122,12 @@ public class Movie extends Media implements Serializable{
         this.certification = certification;
     }
 
-    public List<Genre> getMovieGenreList() {
+    /*public List<Genre> getMovieGenreList() {
         return movieGenreList;
-    }
+    }*/
 
-    public void setMovieGenreList(List<Genre> movieGenreList) {
+    /*public void setMovieGenreList(List<Genre> movieGenreList) {
         this.movieGenreList = movieGenreList;
-    }
+    }*/
 
 }

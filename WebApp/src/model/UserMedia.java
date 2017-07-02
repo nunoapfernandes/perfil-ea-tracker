@@ -1,6 +1,7 @@
 package model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -9,22 +10,27 @@ import java.util.Date;
 
 @Entity
 @Table(name = "user_has_media")
-@AssociationOverrides({
-        @AssociationOverride(name = "primaryKey.user",
-                joinColumns = @JoinColumn(name = "user_id")),
-        @AssociationOverride(name = "primaryKey.media",
-                joinColumns = @JoinColumn(name = "media_id")) })
-public class UserMedia {
-    public UserMedia(){}
+public class UserMedia implements Serializable{
 
-    // composite-id key
+    //composite-id key
+    //@EmbeddedId
+    //private UserMediaId primaryKey = new UserMediaId();
+
+    //@Column (name = "user_id")
+    //private int user_id;
+    //@Column (name = "media_id")
+    //private int media_id;
+
+
     @Id
-    private UserMediaId primaryKey = new UserMediaId();
+    @ManyToOne
+    private User usertr;
+    @Id
+    @ManyToOne
+    private Media media;
 
-    @Column (name = "user_id")
-    private int user_id;
-    @Column (name = "media_id")
-    private int media_id;
+
+
     @Column(name = "watched")
     private boolean watched;
     @Column(name = "watchlist")
@@ -40,14 +46,31 @@ public class UserMedia {
     @Temporal(TemporalType.TIMESTAMP)
     private Date view_date;
 
-    public UserMediaId getPrimaryKey() {
-        return primaryKey;
+    public User getUsertr() {
+        return usertr;
     }
 
-    public void setPrimaryKey(UserMediaId primaryKey) {
-        this.primaryKey = primaryKey;
+    public void setUsertr(User user) {
+        this.usertr = user;
     }
 
+    public Media getMedia() {
+        return media;
+    }
+
+    public void setMedia(Media media) {
+        this.media = media;
+    }
+
+    /*
+        public UserMediaId getPrimaryKey() {
+            return primaryKey;
+        }
+
+        public void setPrimaryKey(UserMediaId primaryKey) {
+            this.primaryKey = primaryKey;
+        }
+    */
     public boolean isWatched() {
         return watched;
     }
@@ -96,6 +119,7 @@ public class UserMedia {
         this.view_date = view_date;
     }
 
+    /*
     public int getUser_id() {
         return user_id;
     }
@@ -111,4 +135,24 @@ public class UserMedia {
     public void setMedia_id(int media_id) {
         this.media_id = media_id;
     }
+*/
+    /*
+
+    @Transient
+    public User getUser(){
+        return primaryKey.getUser();
+    }
+
+    public void setUser(User user){
+        primaryKey.setUser(user);
+    }
+
+    @Transient
+    public Media getMedia(){
+        return primaryKey.getMedia();
+    }
+
+    public void setMedia(Media media){
+        primaryKey.setMedia(media);
+    }*/
 }

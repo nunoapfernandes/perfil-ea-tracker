@@ -13,15 +13,14 @@ import model.Genre;
  */
 
 @Entity
-@Table(name="show")
-@PrimaryKeyJoinColumn(name="media_id", referencedColumnName = "id_media")
+@Table(name="tvshow")
+@PrimaryKeyJoinColumn(name="show_id", referencedColumnName = "id_media")
 public class Show extends Media implements Serializable{
-    public Show(){}
 
     //@Id
     //@GeneratedValue
-    @Column(name = "id_show")
-    private int id_show;
+    //@Column(name = "id_tvshow")
+    //private int id_tvshow;
     @Column(name = "slug")
     private String slug;
     @Column(name = "imdb")
@@ -50,21 +49,42 @@ public class Show extends Media implements Serializable{
     private String language;
     @Column(name = "aired_episodes")
     private int aired_episodes;
+    //@Column(name = "media_id", insertable = false, updatable = false)
+    //private int media_id;
     @Column(name = "seasons")
     private int seasons;
+
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "show")
     private List<Season> seasonsList = new ArrayList<>();
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private Set<Genre> genres = new HashSet<>();
-
-    public int getId_show() {
-        return id_show;
+/*
+    public int getId_tvshow() {
+        return id_tvshow;
     }
 
-    public void setId_show(int id_show) {
-        this.id_show = id_show;
+    public void setId_show(int id_tvshow) {
+        this.id_tvshow = id_tvshow;
     }
+*/
+
+/*
+    public int getMedia_id() {
+        return media_id;
+    }
+
+    public void setMedia_id(int media_id) {
+        this.media_id = media_id;
+    }
+*/
+    /*
+    public List<Genre> getGenres() {
+        return genres;
+    }
+
+    public void setGenres(List<Genre> genres) {
+        this.genres = genres;
+    }*/
 
     public String getSlug() {
         return slug;
@@ -192,14 +212,6 @@ public class Show extends Media implements Serializable{
 
     public void setSeasonsList(List<Season> seasonsList) {
         this.seasonsList = seasonsList;
-    }
-
-    public Set<Genre> getShowGenreList() {
-        return genres;
-    }
-
-    public void setShowGenreList(Set<Genre> showGenreList) {
-        this.genres = showGenreList;
     }
 
 }
