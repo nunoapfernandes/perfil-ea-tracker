@@ -18,7 +18,7 @@ module Trakt
 		end
 
 		def get_trending()
-			@request = 'https://api.trakt.tv/movies/trending?page=1&limit=1'
+			@request = 'https://api.trakt.tv/movies/trending?page=1'
 			@response = RestClient.get @request, @headers
 			@slugs = []
 			json = JSON.parse(@response)
@@ -99,6 +99,7 @@ module Trakt
 			@slugs = connection_data.get_trending()
 			@movie = {}
 			@slugs.each { |slug| 
+				print slug + "\n"
 				@movie = connection_data.get_info_from_slug(slug)
 				insert_into_db(@movie)
 			}

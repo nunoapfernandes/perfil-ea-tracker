@@ -18,7 +18,7 @@ module Trakt
 		end
 
 		def get_trending()
-			@request = 'https://api.trakt.tv/shows/trending?limit=1'
+			@request = 'https://api.trakt.tv/shows/trending'
 			@response = RestClient.get @request, @headers
 			@slugs = []
 			json = JSON.parse(@response)
@@ -208,18 +208,20 @@ module Trakt
 			@slugs = connection_data.get_trending()
 			@slugs.each { |slug| 
 				print slug
+				print ":\n"
 				show = connection_data.get_show_info(slug) 
 				number_seasons = connection_data.get_number_of_seasons(slug)
 				show_id = insert_show_into_db(show,number_seasons)
 				seasons = connection_data.get_seasons_info(slug)
 				seasons.each { |season|
-					print season["number"]
+					print "Season: " + season["number"].to_s
 					season_id = insert_season_into_db(season,show_id,show["ids"]["tmdb"])
 					episodes = connection_data.get_episodes_info(slug,season["number"])
 					episodes.each { |episode|
-						print episode["number"]
+						print " Episode: " + episode["number"].to_s
 						insert_episode_into_db(episode,season_id,show["ids"]["tmdb"])
 					}
+					print "\n"
 				}
 			}
         end
