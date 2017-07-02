@@ -175,17 +175,26 @@ module Trakt
 			episode_number = episode["number"]
 			imdb = episode["ids"]["imdb"]
 			
-			# request = "https://api.themoviedb.org/3/tv/"+show_tmdb.to_s+
-			# 			"/season/"+season_number.to_s+
-			# 			"/episode/"+episode_number.to_s+
-			# 			"?api_key=29a3599e75cc9f95557283c10f79d4e4&language=en-US"
-			# response = RestClient.get request
-			# data = JSON.parse(response)
-			# image_path = data["still_path"]
+			request = "https://api.themoviedb.org/3/tv/"+show_tmdb.to_s+
+						"/season/"+season_number.to_s+
+						"/episode/"+episode_number.to_s+
+						"?api_key=29a3599e75cc9f95557283c10f79d4e4&language=en-US"
+			begin
+				response = RestClient.get request
+				http_code = response.code
+				if http_code == 200
+					data = JSON.parse(response)
+					image_path = data["still_path"]
+				else
+					image_path = nil
+				end
+			rescue => e
+				e.response
+			end
 
-			statement = @client.prepare("INSERT INTO media(title,tmdb,overview,rating_trakt,released,category)
-												VALUES(?,?,?,?,?,?)")
-			result = statement.execute(title,show_tmdb,overview,rating,released,4)
+			statement = @client.prepare("INSERT INTO media(title,tmdb,overview,rating_trakt,released,image_path,category)
+												VALUES(?,?,?,?,?,?,?)")
+			result = statement.execute(title,show_tmdb,overview,rating,released,image_path,4)
 			id_media = @client.last_id
 			
 			statement = @client.prepare("INSERT INTO episode(number,imdb,runtime,season_id,media_id)
