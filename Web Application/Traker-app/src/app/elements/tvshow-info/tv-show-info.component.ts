@@ -3,11 +3,11 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-tv-show-info',
-  templateUrl: './tv_show_info.html',
-  styleUrls: ['./tv_show_info.css']
+  templateUrl: './tv-show-info.component.html',
+  styleUrls: ['./tv-show-info.component.css']
 })
 
-export class TvShowInfo {
+export class TvShowInfoComponent {
     title = "Teste movie info";
     overview = `A Igreja Matriz de Trindade, também conhecida como Igreja Matriz 
     do Divino Pai Eterno, é uma igreja católica localizada na cidade brasileira de Trindade, em

@@ -3,10 +3,10 @@ import { Component, OnInit, Input, Output, OnChanges, EventEmitter, trigger, sta
 
 @Component({
   selector: 'app-homepage',
-  templateUrl: './app.homepage.html',
-  styleUrls: ['./app.homepage.css']
+  templateUrl: './app.homepage.component.html',
+  styleUrls: ['./app.homepage.component.css']
 })
 
-export class HomePage {
+export class HomePageComponent {
 }
 

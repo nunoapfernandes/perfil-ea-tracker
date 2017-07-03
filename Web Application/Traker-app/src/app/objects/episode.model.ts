@@ -1,24 +1,23 @@
-import { genre } from './genre'
+import { genre } from './genre.model'
 
-export class tvshow {
+export class episode{
     id:number;
     title: string;
+    episode_number: number;
 
     certification: string;
     runtime: number;
     language: string;
     air_date: string;
-    status: string;
 
     genres: genre[];
-    episodes: number;
-
+    
     rating: number;
     comments: number;
 
     country: string;
-    premier_date: string;
+    aired: string;
 
-    overview: string;
-    trailer: string;
+    overview: string
+
 }

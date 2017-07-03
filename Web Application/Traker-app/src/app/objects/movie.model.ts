@@ -1,4 +1,4 @@
-import { genre } from './genre'
+import { genre } from './genre.model'
 
 export class movie {
     id:number;
