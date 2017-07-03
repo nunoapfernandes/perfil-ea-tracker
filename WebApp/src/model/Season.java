@@ -19,7 +19,7 @@ public class Season extends Media implements Serializable{
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "show_id", nullable = false)
     private Show show;
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "season")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "season_id")
     private Set<Episode> episodesList = new HashSet<>();
 
     public int getNumber() {

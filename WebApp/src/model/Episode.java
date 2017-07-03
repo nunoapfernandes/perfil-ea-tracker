@@ -16,10 +16,11 @@ public class Episode extends Media implements Serializable{
     private String imdb;
     @Column(name = "season_id", updatable = false, insertable = false)
     private int season_id;
-    @ManyToOne(fetch = FetchType.LAZY)
+
+    /*@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "season_id", nullable = false)
     private Season season;
-
+    */
     public int getRuntime() {
         return runtime;
     }
@@ -50,13 +51,5 @@ public class Episode extends Media implements Serializable{
 
     public void setSeason_id(int season_id) {
         this.season_id = season_id;
-    }
-
-    public Season getSeason() {
-        return season;
-    }
-
-    public void setSeason(Season season) {
-        this.season = season;
     }
 }
