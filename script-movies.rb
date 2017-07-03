@@ -1,6 +1,6 @@
 require 'rest-client'
 require 'json'
-require 'mysql2'
+require 'pg'
 
 module Trakt
 
@@ -18,7 +18,7 @@ module Trakt
 		end
 
 		def get_trending()
-			@request = 'https://api.trakt.tv/movies/trending?page=1'
+			@request = 'https://api.trakt.tv/movies/trending'
 			@response = RestClient.get @request, @headers
 			@slugs = []
 			json = JSON.parse(@response)
@@ -38,10 +38,10 @@ module Trakt
     class App
 
         def initialize
-			@client = Mysql2::Client.new(:host => "localhost", :username => "root", :password => "123", :database => "trackdb")
+			@client = PG.connect(:host=>'localhost', :port=>5432, :user=>'postgres', :password=>'postgres',:dbname=>'trackdb')
         end
 
-		def insert_into_db(movie)
+		def insert_into_db(movie,id)
 			title = movie["title"]
 			slug = movie["ids"]["slug"]
 			imdb = movie["ids"]["imdb"]
@@ -62,33 +62,33 @@ module Trakt
 			data = JSON.parse(response)
 			image_path = data["poster_path"]
 			
-			genre_ids = get_genre_ids(genres)
+			genre_ids = get_genre_ids(genres,id)
+			@client.prepare('media'+id.to_s,"INSERT INTO media(title,tmdb,overview,rating_trakt,released,image_path,category)
+												VALUES($1,$2,$3,$4,$5,$6,$7) returning id_media")
 
-			statement = @client.prepare("INSERT INTO media(title,tmdb,overview,rating_trakt,released,image_path,category)
-												VALUES(?,?,?,?,?,?,?)")
-			result = statement.execute(title,tmdb,overview,rating,released,image_path,1)
-			id_media = @client.last_id
+			result = @client.exec_prepared('media'+id.to_s,[title,tmdb,overview,rating,released,image_path,1])
+			id_media = result.first["id_media"]
+			
 		
-			statement = @client.prepare("INSERT INTO movie(slug,imdb,tagline,trailer,runtime,homepage,language,certification,media_id)
-												VALUES(?,?,?,?,?,?,?,?,?)")
-			result = statement.execute(slug,imdb,tagline,trailer,runtime,homepage,language,certification,id_media)
-			id_movie = @client.last_id
+			@client.prepare('movie'+id.to_s,"INSERT INTO movie(slug,imdb,tagline,trailer,runtime,homepage,language,certification,id_media)
+												VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9)")
+			result = @client.exec_prepared('movie'+id.to_s,[slug,imdb,tagline,trailer,runtime,homepage,language,certification,id_media])
 
-			statement = @client.prepare("INSERT INTO movie_has_genre(movie_id,genre_id) VALUES(?,?)")
+			@client.prepare('genres'+id.to_s,"INSERT INTO media_genre(medias_id_media,genres_id_genre) VALUES($1,$2)")
 			genres.each do |genre| 
-				result = statement.execute(id_movie,genre_ids[genre])
+				@client.exec_prepared('genres'+id.to_s,[id_media,genre_ids[genre]])
 			end
 		end
 		
-		def get_genre_ids(genres)
+		def get_genre_ids(genres,id)
 			genre_ids = {}
-			statement = @client.prepare("SELECT id_genre FROM genre WHERE genre = ?")
+			gid = 0
 			genres.each do |genre|
-				result = statement.execute(genre)
-				if result.size > 0
-					result.each do |name|
-						genre_ids[genre] = name["id_genre"]
-					end
+				@client.prepare('genre'+id.to_s+gid.to_s,"SELECT id_genre FROM genre WHERE genre = $1")
+				result = @client.exec_prepared('genre'+id.to_s+gid.to_s,[genre])
+				gid=gid+1
+				result.each do |name|
+					genre_ids[genre] = name["id_genre"]
 				end
 			end
 			genre_ids
@@ -97,11 +97,13 @@ module Trakt
         def run
             connection_data = Trakt::ConnectionData.new
 			@slugs = connection_data.get_trending()
+			id = 0
 			@movie = {}
 			@slugs.each { |slug| 
 				print slug + "\n"
 				@movie = connection_data.get_info_from_slug(slug)
-				insert_into_db(@movie)
+				insert_into_db(@movie,id)
+				id = id+1
 			}
 			
         end
