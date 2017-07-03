@@ -1,29 +1,32 @@
 package persistence;
 
-import model.*;
 import org.hibernate.SessionFactory;
+import org.hibernate.boot.Metadata;
+import org.hibernate.boot.MetadataSources;
+import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.hibernate.cfg.Configuration;
-import org.hibernate.service.ServiceRegistry;
 
-/**
- * Created by RicardoFerreira on 30/06/2017.
- */
 public class HibernateUtil {
-    private static SessionFactory sessionFactory;
+    private static SessionFactory sessionFactory = createSessionFactory();
 
-    public static SessionFactory getSessionFactory() {
+    private static SessionFactory createSessionFactory() {
         if (sessionFactory == null) {
-            // loads configuration and mappings
-            Configuration configuration = new Configuration().configure();
-            ServiceRegistry serviceRegistry
-                    = new StandardServiceRegistryBuilder()
-                    .applySettings(configuration.getProperties()).build();
-
-            // builds a session factory from the service registry
-            sessionFactory = configuration.addAnnotatedClass(User.class).addAnnotatedClass(Movie.class).addAnnotatedClass(UserMedia.class).addAnnotatedClass(Show.class).addAnnotatedClass(Season.class).addAnnotatedClass(Media.class).addAnnotatedClass(Episode.class).addAnnotatedClass(Genre.class).buildSessionFactory(serviceRegistry);
+            StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
+                    .configure("hibernate.cfg.xml")
+                    .build();
+            Metadata metaData = new MetadataSources(standardRegistry)
+                    .getMetadataBuilder()
+                    .build();
+            sessionFactory = metaData.getSessionFactoryBuilder().build();
         }
-
         return sessionFactory;
+    }
+
+    static SessionFactory getSessionFactory() {
+        return sessionFactory;
+    }
+
+    public static void shutdown() {
+        sessionFactory.getCurrentSession().close();
     }
 }

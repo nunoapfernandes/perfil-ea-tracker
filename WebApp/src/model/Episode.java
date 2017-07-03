@@ -3,51 +3,31 @@ package model;
 import javax.persistence.*;
 import java.io.Serializable;
 
-/**
- * Created by RicardoFerreira on 30/06/2017.
- */
-
 @Entity
 @Table(name="episode")
 @PrimaryKeyJoinColumn(name="episode_id", referencedColumnName = "id_media")
 public class Episode extends Media implements Serializable{
-    public Episode(){}
 
-    //@Id
-    //@GeneratedValue
-    //@Column(name = "id_episode")
-    //private int id_episode;
+    @Column(name = "runtime")
+    private int runtime;
     @Column(name = "number")
     private int number;
     @Column(name = "imdb")
     private String imdb;
-    //@Column(name = "media_id", insertable = false, updatable = false)
-    //private int media_id;
     @Column(name = "season_id", updatable = false, insertable = false)
     private int season_id;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "season_id", nullable = false)
-    private Show season;
+    private Season season;
 
-
-    /*
-    public int getMedia_id() {
-        return media_id;
+    public int getRuntime() {
+        return runtime;
     }
 
-    public void setMedia_id(int media_id) {
-        this.media_id = media_id;
-    }
-*/
-    /*
-    public int getId_episode() {
-        return id_episode;
+    public void setRuntime(int runtime) {
+        this.runtime = runtime;
     }
 
-    public void setId_episode(int id_episode) {
-        this.id_episode = id_episode;
-    }
-*/
     public int getNumber() {
         return number;
     }
@@ -72,12 +52,11 @@ public class Episode extends Media implements Serializable{
         this.season_id = season_id;
     }
 
-    public Show getSeason() {
+    public Season getSeason() {
         return season;
     }
 
-    public void setSeason(Show season) {
+    public void setSeason(Season season) {
         this.season = season;
     }
-
 }

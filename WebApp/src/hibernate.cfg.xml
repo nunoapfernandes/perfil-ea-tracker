@@ -9,6 +9,8 @@
         <property name="hibernate.connection.url">
             jdbc:postgresql://localhost:5432/trackdb
         </property>
+        <property name="hibernate.connection.username">postgres</property>
+        <property name="hibernate.connection.password">postgres</property>
         <property name="hibernate.hbm2ddl.auto">
             update
         </property>

@@ -5,9 +5,6 @@ import persistence.SeasonDAO;
 
 import javax.ejb.Stateless;
 
-/**
- * Created by RicardoFerreira on 01/07/2017.
- */
 @Stateless(name = "SeasonEJB")
 public class SeasonBean implements SeasonBeanLocal {
     @Override

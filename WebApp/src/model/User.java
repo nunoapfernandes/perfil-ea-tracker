@@ -4,15 +4,9 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.*;
 
-/**
- * Created by RicardoFerreira on 30/06/2017.
- */
-
 @Entity
 @Table(name="usertr")
 public class User implements Serializable{
-
-    //public User(){}
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

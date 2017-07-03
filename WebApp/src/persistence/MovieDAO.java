@@ -8,13 +8,7 @@ import org.hibernate.query.Query;
 
 public class MovieDAO {
 
-    private static Session session;
-    private static SessionFactory sessionFactory;
-
-    public MovieDAO(){
-        sessionFactory = HibernateUtil.getSessionFactory();
-        session = sessionFactory.openSession();
-    }
+    private static Session session = HibernateUtil.getSessionFactory().openSession();
 
     public static void registerMovie(Movie movie){
         session.saveOrUpdate(movie);
@@ -22,11 +16,8 @@ public class MovieDAO {
     }
 
     public static Movie getMovie(int movieid){
-        SessionFactory factory = HibernateUtil.getSessionFactory();
-        Session session = factory.openSession();
-        Query query = session.createQuery("select m from Movie m where m.id_movie = :movieid");
+        Query query = session.createQuery("select m from Movie m where m.id_media = :movieid");
         query.setParameter("movieid", movieid);
-
         return (Movie) query.getSingleResult();
     }
 

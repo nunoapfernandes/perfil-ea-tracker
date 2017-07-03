@@ -23,3 +23,8 @@ hs_err_pid*
 
 # MySQL Workbench 
 database/trackdb.mwb.bak
+
+# .idea 
+WebApp/.idea
+WebApp/WebApp.iml
+WebApp/out

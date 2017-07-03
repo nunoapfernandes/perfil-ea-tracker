@@ -5,12 +5,8 @@ import persistence.UserDAO;
 
 import javax.ejb.Stateless;
 
-/**
- * Created by RicardoFerreira on 01/07/2017.
- */
 @Stateless(name = "UserEJB")
 public class UserBean implements UserBeanLocal{
-    public UserBean() {}
 
     @Override
     public User login(String username, String password){

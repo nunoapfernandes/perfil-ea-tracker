@@ -9,13 +9,13 @@ import persistence.MediaDAO;
 import javax.ejb.Stateless;
 import java.util.List;
 
-/**
- * Created by RicardoFerreira on 01/07/2017.
- */
 @Stateless(name = "MediaEJB")
 public class MediaBean implements MediaBeanLocal{
 
-    public MediaBean() {}
+    @Override
+    public Media getMediaById(int idMedia) {
+        return MediaDAO.getMediaById(idMedia);
+    }
 
     @Override
     public List<Media> searchMedia(String name) {
@@ -54,13 +54,12 @@ public class MediaBean implements MediaBeanLocal{
 
     @Override
     public List<Media> listShowSeasons(Show show) {
-        return null;
-        //return MediaDAO.listShowSeasons(show.getId_show());
+        return MediaDAO.listShowSeasons(show.getId_media());
     }
 
     @Override
     public List<Media> listSeasonEpisodes(Season season) {
-        return null;
-        //return MediaDAO.listSeasonEpisodes(season.getId_season());
+        return MediaDAO.listSeasonEpisodes(season.getId_media());
     }
+
 }

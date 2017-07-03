@@ -5,25 +5,20 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.*;
 
-/**
- * Created by RicardoFerreira on 01/07/2017.
- */
-
-
 @Entity
 @Table(name = "media")
 @Inheritance(strategy=InheritanceType.JOINED)
 public class Media implements Serializable {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_media", unique = true, nullable = false)
     private int id_media;
     @Column (name = "title")
     private String title;
     @Column (name = "tmdb")
     private String tmdb;
-    @Column (name = "overview")
+    @Column (name = "overview", length = 5000)
     private String overview;
     @Column (name = "rating_trakt")
     private BigDecimal rating_trakt;
@@ -35,26 +30,11 @@ public class Media implements Serializable {
     private int category;
     @Column (name = "rating")
     private BigDecimal rating;
-
-    /*
-    @OneToMany(mappedBy = "primaryKey.media", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<UserMedia> userMedia = new LinkedList<>();
-    */
-
-
     @OneToMany(mappedBy = "media", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<UserMedia> users = new ArrayList<>();
-
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<Genre> genres = new ArrayList<Genre>();
-
-    public List<Genre> getGenres() {
-        return genres;
-    }
-
-    public void setGenres(List<Genre> genres) {
-        this.genres = genres;
-    }
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "media_genre", joinColumns = { @JoinColumn(name = "medias_id_media") }, inverseJoinColumns = { @JoinColumn(name = "genres_id_genre") })
+    private List<Genre> genres = new ArrayList<>();
 
     public int getId_media() {
         return id_media;
@@ -132,7 +112,15 @@ public class Media implements Serializable {
         return users;
     }
 
-    public void setUsers(List<UserMedia> userMedia) {
-        this.users = userMedia;
+    public void setUsers(List<UserMedia> users) {
+        this.users = users;
+    }
+
+    public List<Genre> getGenres() {
+        return genres;
+    }
+
+    public void setGenres(List<Genre> genres) {
+        this.genres = genres;
     }
 }

@@ -4,23 +4,9 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
-/**
- * Created by RicardoFerreira on 01/07/2017.
- */
-
 @Entity
 @Table(name = "user_has_media")
 public class UserMedia implements Serializable{
-
-    //composite-id key
-    //@EmbeddedId
-    //private UserMediaId primaryKey = new UserMediaId();
-
-    //@Column (name = "user_id")
-    //private int user_id;
-    //@Column (name = "media_id")
-    //private int media_id;
-
 
     @Id
     @ManyToOne
@@ -28,9 +14,6 @@ public class UserMedia implements Serializable{
     @Id
     @ManyToOne
     private Media media;
-
-
-
     @Column(name = "watched")
     private boolean watched;
     @Column(name = "watchlist")
@@ -50,8 +33,8 @@ public class UserMedia implements Serializable{
         return usertr;
     }
 
-    public void setUsertr(User user) {
-        this.usertr = user;
+    public void setUsertr(User usertr) {
+        this.usertr = usertr;
     }
 
     public Media getMedia() {
@@ -62,15 +45,6 @@ public class UserMedia implements Serializable{
         this.media = media;
     }
 
-    /*
-        public UserMediaId getPrimaryKey() {
-            return primaryKey;
-        }
-
-        public void setPrimaryKey(UserMediaId primaryKey) {
-            this.primaryKey = primaryKey;
-        }
-    */
     public boolean isWatched() {
         return watched;
     }
@@ -118,41 +92,4 @@ public class UserMedia implements Serializable{
     public void setView_date(Date view_date) {
         this.view_date = view_date;
     }
-
-    /*
-    public int getUser_id() {
-        return user_id;
-    }
-
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
-    }
-
-    public int getMedia_id() {
-        return media_id;
-    }
-
-    public void setMedia_id(int media_id) {
-        this.media_id = media_id;
-    }
-*/
-    /*
-
-    @Transient
-    public User getUser(){
-        return primaryKey.getUser();
-    }
-
-    public void setUser(User user){
-        primaryKey.setUser(user);
-    }
-
-    @Transient
-    public Media getMedia(){
-        return primaryKey.getMedia();
-    }
-
-    public void setMedia(Media media){
-        primaryKey.setMedia(media);
-    }*/
 }

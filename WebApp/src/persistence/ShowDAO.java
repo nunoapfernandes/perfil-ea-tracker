@@ -2,21 +2,11 @@ package persistence;
 
 import model.Show;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 
-/**
- * Created by RicardoFerreira on 01/07/2017.
- */
 public class ShowDAO {
 
-    private static Session session;
-    private static SessionFactory sessionFactory;
-
-    public ShowDAO(){
-        sessionFactory = HibernateUtil.getSessionFactory();
-        session = sessionFactory.openSession();
-    }
+    private static Session session = HibernateUtil.getSessionFactory().openSession();
 
     public static void registerShow(Show show){
         session.saveOrUpdate(show);
@@ -24,7 +14,7 @@ public class ShowDAO {
     }
 
     public static Show getShow(int showid){
-        Query query = session.createQuery("select s from Show s where s.id_show = :showid");
+        Query query = session.createQuery("select s from Show s where s.id_media = :showid");
         query.setParameter("showid", showid);
 
         return (Show) query.getSingleResult();

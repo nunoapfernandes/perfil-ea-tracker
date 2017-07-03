@@ -5,37 +5,20 @@ import model.Media;
 import model.User;
 import model.UserMedia;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 
 import java.sql.Timestamp;
 import java.util.Date;
 
-/**
- * Created by RicardoFerreira on 01/07/2017.
- */
 public class UserDAO {
-    private static Session session;
-    private static SessionFactory sessionFactory;
-
-    public UserDAO(){
-        sessionFactory = HibernateUtil.getSessionFactory();
-        session = sessionFactory.openSession();
-    }
+    private static Session session = HibernateUtil.getSessionFactory().openSession();
 
     public static User loadUserById(int id){
-        SessionFactory factory = HibernateUtil.getSessionFactory();
-        Session session = factory.openSession();
-        //Query query = session.createQuery("select User from User where id_user = 1");
-        //query.setParameter("id", id);
-
-        //return (User) query.getSingleResult();
         return (User) session.get(User.class, id);
     }
 
     public static User loadUserByLogin(String queryAdd){
         Query query = session.createQuery("from User as User where " + queryAdd);
-
         return (User) query.getSingleResult();
     }
 
@@ -56,7 +39,6 @@ public class UserDAO {
 
             //Save the invitation in database
             session.save(user);
-
             //Commit the transaction
             session.getTransaction().commit();
         }
@@ -72,10 +54,7 @@ public class UserDAO {
 
     public static boolean userExists(String name){
         User user = searchUser(name);
-        if(user != null)
-            return true;
-        else
-            return false;
+        return user != null;
     }
 
     public static void userWatched(Media media, User user, boolean state){
@@ -88,7 +67,6 @@ public class UserDAO {
         userMedia.setWatchlist(false);
 
         session.saveOrUpdate(userMedia);
-
         session.getTransaction().commit();
     }
 
@@ -101,7 +79,6 @@ public class UserDAO {
         userMedia.setWatchlist(state);
 
         session.saveOrUpdate(userMedia);
-
         session.getTransaction().commit();
     }
 
@@ -112,7 +89,6 @@ public class UserDAO {
         userMedia.setComment(comment);
 
         session.saveOrUpdate(userMedia);
-
         session.getTransaction().commit();
     }
 
@@ -124,7 +100,6 @@ public class UserDAO {
         userMedia.setRating(rate);
 
         session.saveOrUpdate(userMedia);
-
         session.getTransaction().commit();
     }
 

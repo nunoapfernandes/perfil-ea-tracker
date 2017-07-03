@@ -3,24 +3,13 @@ package model;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-import model.Genre;
-
-/**
- * Created by RicardoFerreira on 30/06/2017.
- */
 
 @Entity
 @Table(name="tvshow")
 @PrimaryKeyJoinColumn(name="show_id", referencedColumnName = "id_media")
 public class Show extends Media implements Serializable{
 
-    //@Id
-    //@GeneratedValue
-    //@Column(name = "id_tvshow")
-    //private int id_tvshow;
     @Column(name = "slug")
     private String slug;
     @Column(name = "imdb")
@@ -49,42 +38,10 @@ public class Show extends Media implements Serializable{
     private String language;
     @Column(name = "aired_episodes")
     private int aired_episodes;
-    //@Column(name = "media_id", insertable = false, updatable = false)
-    //private int media_id;
     @Column(name = "seasons")
     private int seasons;
-
-
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "show")
     private List<Season> seasonsList = new ArrayList<>();
-
-/*
-    public int getId_tvshow() {
-        return id_tvshow;
-    }
-
-    public void setId_show(int id_tvshow) {
-        this.id_tvshow = id_tvshow;
-    }
-*/
-
-/*
-    public int getMedia_id() {
-        return media_id;
-    }
-
-    public void setMedia_id(int media_id) {
-        this.media_id = media_id;
-    }
-*/
-    /*
-    public List<Genre> getGenres() {
-        return genres;
-    }
-
-    public void setGenres(List<Genre> genres) {
-        this.genres = genres;
-    }*/
 
     public String getSlug() {
         return slug;
@@ -213,5 +170,4 @@ public class Show extends Media implements Serializable{
     public void setSeasonsList(List<Season> seasonsList) {
         this.seasonsList = seasonsList;
     }
-
 }

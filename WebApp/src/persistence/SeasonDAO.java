@@ -5,17 +5,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 
-/**
- * Created by RicardoFerreira on 01/07/2017.
- */
 public class SeasonDAO {
-    private static Session session;
-    private static SessionFactory sessionFactory;
-
-    public SeasonDAO(){
-        sessionFactory = HibernateUtil.getSessionFactory();
-        session = sessionFactory.openSession();
-    }
+    private static Session session = HibernateUtil.getSessionFactory().openSession();
 
     public static void registerSeason(Season season){
         session.saveOrUpdate(season);
@@ -23,9 +14,8 @@ public class SeasonDAO {
     }
 
     public static Season getSeason(int seasonid){
-        Query query = session.createQuery("select s from Season s where s.id_season = :seasonid");
+        Query query = session.createQuery("select s from Season s where s.id_media = :seasonid");
         query.setParameter("seasonid", seasonid);
-
         return (Season) query.getSingleResult();
     }
 

@@ -2,114 +2,97 @@ package persistence;
 
 import model.Media;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 
+import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by RicardoFerreira on 01/07/2017.
- */
 public class MediaDAO {
 
-    private static Session session;
-    private static SessionFactory sessionFactory;
+    private static Session session = HibernateUtil.getSessionFactory().openSession();
 
-    public MediaDAO(){
-        sessionFactory = HibernateUtil.getSessionFactory();
-        session = sessionFactory.openSession();
+    public static Media getMediaById(int idMedia) {
+        Media media;
+        Query query = session.createQuery("FROM Media WHERE id_media = :id_media");
+        query.setParameter("id_media",idMedia);
+        media = (Media) query.getResultList().get(0);
+        return media;
     }
 
     public static List<Media> searchMedia(String name){
-        List<Media> allMedia;
+        List<Media> allMedia = new ArrayList<Media>();
+        Query query = session.createQuery("FROM Media WHERE title = :name");
+        query.setParameter("name",name);
+        allMedia = query.getResultList();
+        return allMedia;
+    }
 
-        Query query = session.createQuery("select m from Media m where m.title='"+name+"'");
+    public static List<Media> listAllMedia(){
+        List<Media> allMedia;
+        Query query = session.createQuery("from Media");
         allMedia = query.getResultList();
         return allMedia;
     }
 
     public static List<Media> listUserWatchedMedia(int userid){
         List<Media> allMedia;
-
-        Query query = session.createQuery("select m from Media m join UserMedia um where um.user_id = : userid and um.watched = true");
+        Query query = session.createQuery("select m from Media m join UserMedia um where um.usertr.id_user = :userid and um.watched = true");
         query.setParameter("userid", userid);
         allMedia = query.getResultList();
-
         return allMedia;
     }
 
     public static List<Media> listUserWatchListMedia(int userid){
         List<Media> allMedia;
-
-        Query query = session.createQuery("select m from Media m join UserMedia um where um.user_id = : userid and um.watchlist = true");
+        Query query = session.createQuery("select m from Media m join UserMedia um where um.usertr.id_user = :userid and um.watchlist = true");
         query.setParameter("userid", userid);
         allMedia = query.getResultList();
-
-        return allMedia;
-    }
-
-    public static List<Media> listAllMedia(){
-        List allMedia;
-        SessionFactory factory = HibernateUtil.getSessionFactory();
-        Session session = factory.openSession();
-        Query query = session.createQuery("from Media");
-        allMedia = query.getResultList();
-
         return allMedia;
     }
 
     public static List<Media> listAllByCategory(int category){
-        List allMedia;
-        Query query = session.createQuery("from Media where category="+category);
+        List<Media> allMedia;
+        Query query = session.createQuery("from Media where category = :category");
+        query.setParameter("category",category);
         allMedia = query.getResultList();
-
         return allMedia;
     }
 
     public static List<Media> listAllWatchedByCategory(int category, int userid){
-        List allMedia;
-        Query query = session.createQuery("select m from Media m join UserMedia um where um.user_id = :userid and m.category = :category and um.watched = true");
+        List<Media> allMedia;
+        Query query = session.createQuery("select m from Media m join UserMedia um where " +
+                "um.usertr.id_user = :userid and m.category = :category and um.watched = true");
         query.setParameter("userid", userid);
         query.setParameter("category", category);
         allMedia = query.getResultList();
-
         return allMedia;
     }
 
     public static List<Media> listAllWatchListByCategory(int category, int userid){
-        List allMedia;
-        Query query = session.createQuery("select m from Media m join UserMedia um where um.user_id = :userid and m.category = :category and um.watchlist = true");
+        List<Media> allMedia;
+        Query query = session.createQuery("select m from Media m join UserMedia um where " +
+                "um.usertr.id_user = :userid and m.category = :category and um.watchlist = true");
         query.setParameter("userid", userid);
         query.setParameter("category", category);
         allMedia = query.getResultList();
-
         return allMedia;
     }
 
     public static List<Media> listShowSeasons(int showid){
         List<Media> allMedia;
-        Query query = session.createQuery("from Media m join Season s where s.show_id = :showid");
+        Query query = session.createQuery("from Season s where s.id_media = :showid");
         query.setParameter("showid", showid);
         allMedia = query.getResultList();
-
         return allMedia;
     }
 
     public static List<Media> listSeasonEpisodes(int seasonid){
         List<Media> allMedia;
-        Query query = session.createQuery("from Media m join Episode e where e.season_id = :seasonid");
+        Query query = session.createQuery("from Episode e where e.id_media = :seasonid");
         query.setParameter("seasonid", seasonid);
         allMedia = query.getResultList();
-
         return allMedia;
     }
-
-
-
-
-
-
-
 
     /*
     public List<Media> listUserWatchedMediaByDateAscending(User user){

@@ -5,10 +5,6 @@ import persistence.ShowDAO;
 
 import javax.ejb.Stateless;
 
-/**
- * Created by RicardoFerreira on 01/07/2017.
- */
-
 @Stateless(name = "ShowEJB")
 public class ShowBean implements ShowBeanLocal{
     @Override
