@@ -18,7 +18,7 @@ module Trakt
 		end
 
 		def get_trending()
-			@request = 'https://api.trakt.tv/shows/trending'
+			@request = 'https://api.trakt.tv/shows/trending?limit=1'
 			@response = RestClient.get @request, @headers
 			@slugs = []
 			json = JSON.parse(@response)
@@ -179,9 +179,13 @@ module Trakt
 			result = @client.exec_prepared('media'+id.to_s+show_id.to_s+season_number.to_s,[title,show_tmdb,overview,rating,released,image_path,3])
 			id_media = result.first["id_media"]
 		
-			@client.prepare('season'+id.to_s+show_id.to_s+season_number.to_s,"INSERT INTO season(number,episodes,aired_episodes,show_id,season_id)
-												VALUES($1,$2,$3,$4,$5)")
-			@client.exec_prepared('season'+id.to_s+show_id.to_s+season_number.to_s,[season_number,episodes,aired_episodes,show_id,id_media])
+			@client.prepare('season'+id.to_s+show_id.to_s+season_number.to_s,"INSERT INTO season(number,episodes,aired_episodes,season_id)
+												VALUES($1,$2,$3,$4)")
+			@client.exec_prepared('season'+id.to_s+show_id.to_s+season_number.to_s,[season_number,episodes,aired_episodes,id_media])
+			
+			@client.prepare('showseason'+id.to_s+show_id.to_s+season_number.to_s,"INSERT INTO tvshow_season(show_id,season_id)
+												VALUES($1,$2)")
+			@client.exec_prepared('showseason'+id.to_s+show_id.to_s+season_number.to_s,[show_id,id_media])
 			
 			id_media # season_id
 		end
@@ -219,9 +223,13 @@ module Trakt
 			result = @client.exec_prepared('media'+id.to_s+season_id.to_s+episode_number.to_s,[title,show_tmdb,overview,rating,released,image_path,4])
 			id_media = result.first["id_media"]
 			
-			@client.prepare('episode'+id.to_s+season_id.to_s+episode_number.to_s,"INSERT INTO episode(number,imdb,runtime,season_id,episode_id)
-												VALUES($1,$2,$3,$4,$5)")
-			@client.exec_prepared('episode'+id.to_s+season_id.to_s+episode_number.to_s,[episode_number,imdb,runtime,season_id,id_media])
+			@client.prepare('episode'+id.to_s+season_id.to_s+episode_number.to_s,"INSERT INTO episode(number,imdb,runtime,episode_id)
+												VALUES($1,$2,$3,$4)")
+			@client.exec_prepared('episode'+id.to_s+season_id.to_s+episode_number.to_s,[episode_number,imdb,runtime,id_media])
+			
+			@client.prepare('seasonepisode'+id.to_s+season_id.to_s+episode_number.to_s,"INSERT INTO season_episode(season_id,episode_id)
+												VALUES($1,$2)")
+			@client.exec_prepared('seasonepisode'+id.to_s+season_id.to_s+episode_number.to_s,[season_id,id_media])
 			
 		end 
 
@@ -237,11 +245,11 @@ module Trakt
 				show_id = insert_show_into_db(show,number_seasons,id)
 				seasons = connection_data.get_seasons_info(slug)
 				seasons.each { |season|
-					#print "Season: " + season["number"].to_s
+					print "Season: " + season["number"].to_s
 					season_id = insert_season_into_db(season,show_id,show["ids"]["tmdb"],id)
 					episodes = connection_data.get_episodes_info(slug,season["number"])
 					episodes.each { |episode|
-						#print " Episode: " + episode["number"].to_s
+						print " Episode: " + episode["number"].to_s
 						insert_episode_into_db(episode,season_id,show["ids"]["tmdb"],id)
 					}
 				}

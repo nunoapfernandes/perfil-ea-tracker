@@ -1,17 +1,10 @@
-import beans.EpisodeBean;
-import beans.MediaBean;
-import beans.SeasonBean;
-import beans.ShowBean;
-import model.Episode;
+import beans.*;
 import model.Media;
-import model.Season;
-import model.Show;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import java.util.ArrayList;
 import java.util.List;
 
 @Path("/home2")
@@ -21,26 +14,28 @@ public class HelloWorld {
     @Produces(MediaType.APPLICATION_JSON)
     public List<Media> hello(){
 
-        List<Media> l = new ArrayList<>();
+        List<Media> l;
 
         MediaBean mediaBean = new MediaBean();
+        MovieBean movieBean = new MovieBean();
         ShowBean showBean = new ShowBean();
         SeasonBean seasonBean = new SeasonBean();
         EpisodeBean episodeBean = new EpisodeBean();
 
-        l = mediaBean.searchMedia("Game of Thrones");
+//        l = showBean.getShowById(1);
+
+
 /*
+        l = mediaBean.searchMedia("Game of Thrones");
+
 
         Show show = showBean.getShowById(165);
-
-
         Season season = seasonBean.getSeasonById(166);
-
-
         Episode episode = episodeBean.getEpisodeById(167);
 
         l.add(show); l.add(season); l.add(episode);
 */
+        l = mediaBean.listAllByCategory(2);
 
 
         return l;

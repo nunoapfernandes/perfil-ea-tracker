@@ -123,4 +123,5 @@ public class Media implements Serializable {
     public void setGenres(List<Genre> genres) {
         this.genres = genres;
     }
+
 }

@@ -10,17 +10,26 @@ import java.util.Set;
 @PrimaryKeyJoinColumn(name="season_id", referencedColumnName = "id_media")
 public class Season extends Media implements Serializable{
 
+    @Column(name = "season_id", nullable = false, insertable = false, updatable = false)
+    private int season_id;
     @Column(name = "number")
     private int number;
     @Column(name = "episodes")
     private int episodes;
     @Column(name = "aired_episodes")
     private int aired_episodes;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "show_id", nullable = false)
-    private Show show;
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "season_id")
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "season_episode", joinColumns = {@JoinColumn (name = "season_id")},inverseJoinColumns = { @JoinColumn (name = "episode_Id")})
     private Set<Episode> episodesList = new HashSet<>();
+
+
+    public int getSeason_id() {
+        return season_id;
+    }
+
+    public void setSeason_id(int season_id) {
+        this.season_id = season_id;
+    }
 
     public int getNumber() {
         return number;
@@ -44,14 +53,6 @@ public class Season extends Media implements Serializable{
 
     public void setAired_episodes(int aired_episodes) {
         this.aired_episodes = aired_episodes;
-    }
-
-    public Show getShow() {
-        return show;
-    }
-
-    public void setShow(Show show) {
-        this.show = show;
     }
 
     public Set<Episode> getEpisodesList() {
