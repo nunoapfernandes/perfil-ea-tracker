@@ -58,9 +58,18 @@ module Trakt
 			certification = movie["certification"]
 
 			request = 'https://api.themoviedb.org/3/movie/'+tmdb.to_s+'?api_key=29a3599e75cc9f95557283c10f79d4e4&language=en-US'
-			response = RestClient.get request
-			data = JSON.parse(response)
-			image_path = data["poster_path"]
+			begin
+				response = RestClient.get request
+				http_code = response.code
+				if http_code == 200
+					data = JSON.parse(response)
+					image_path = data["poster_path"]
+				else
+					image_path = nil
+				end
+			rescue => e
+				e.response
+			end
 			
 			genre_ids = get_genre_ids(genres,id)
 			@client.prepare('media'+id.to_s,"INSERT INTO media(title,tmdb,overview,rating_trakt,released,image_path,category)
