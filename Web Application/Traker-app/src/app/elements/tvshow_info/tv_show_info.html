@@ -1,0 +1,68 @@
+<div class="tv_show_info">
+    <!-- Title element -->
+    <div class="tv_show_title row">
+        <h3>{{title}}</h3>
+    </div>
+
+    <!-- Rating and comments counter -->
+    <div class="row">
+        <div class="col-md-4" style="float:right">
+            Comments: {{comments}}
+        </div>
+        <div class="col-md-4" style="float:right">
+            <strong>Rating: {{rating}}</strong>
+        </div>
+    </div>
+
+    <!-- Certification and genres -->
+    <div class="row">
+        <div class="col-md-4">
+            Certification: {{certification}}
+        </div>
+        <div class="col-md-6" style="float:right">
+            Genres: {{genres}}
+        </div>
+    </div>
+
+    <!-- runtime and total runtime --> 
+    <div class="row">
+        <div class="col-md-4">
+            Runtime: {{runtime}}
+        </div>
+        <div class="col-md-6" style="float:right">
+            Total Runtime: {{total_runtime}}
+        </div>
+    </div>
+
+    <!-- Language and country -->
+    <div class="row">
+        <div class="col-md-4">
+            Language: {{language}}
+        </div>
+        <div class="col-md-6" style="float:right">
+            Country: {{country}}
+        </div>
+    </div>
+
+    <!-- Airs time, Premier date, Status-->
+    <div class="row">
+        <div class="col-md-4">
+            Airs: {{air_date}}
+        </div>
+        <div class="col-md-4">
+            Premiered: {{premiered}}
+        </div>
+        <div class="col-md-4">
+            Status: {{status}}
+        </div>
+    </div>
+
+    <div class="row" style="margin-top:40px">
+        {{overview}}
+    </div>
+    <div class="row" style="margin-top:25px">
+        <div class="col-md-2">
+            Trailer: {{trailer}}
+        </div>
+    </div>
+</div>
