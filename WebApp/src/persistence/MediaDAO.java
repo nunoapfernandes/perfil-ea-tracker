@@ -5,6 +5,7 @@ import org.hibernate.Session;
 import org.hibernate.query.Query;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class MediaDAO {
@@ -55,6 +56,7 @@ public class MediaDAO {
         Query query = session.createQuery("from Media where category = :category");
         query.setParameter("category",category);
         allMedia = query.getResultList();
+        allMedia.sort(Comparator.comparingInt(Media::getId_media));
         return allMedia;
     }
 

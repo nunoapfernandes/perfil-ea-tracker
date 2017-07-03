@@ -8,19 +8,23 @@ import java.io.Serializable;
 @PrimaryKeyJoinColumn(name="episode_id", referencedColumnName = "id_media")
 public class Episode extends Media implements Serializable{
 
+    @Column(name = "episode_id", nullable = false, insertable = false, updatable = false)
+    private int episode_id;
     @Column(name = "runtime")
     private int runtime;
     @Column(name = "number")
     private int number;
     @Column(name = "imdb")
     private String imdb;
-    @Column(name = "season_id", updatable = false, insertable = false)
-    private int season_id;
 
-    /*@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "season_id", nullable = false)
-    private Season season;
-    */
+    public int getEpisode_id() {
+        return episode_id;
+    }
+
+    public void setEpisode_id(int episode_id) {
+        this.episode_id = episode_id;
+    }
+
     public int getRuntime() {
         return runtime;
     }
@@ -43,13 +47,5 @@ public class Episode extends Media implements Serializable{
 
     public void setImdb(String imdb) {
         this.imdb = imdb;
-    }
-
-    public int getSeason_id() {
-        return season_id;
-    }
-
-    public void setSeason_id(int season_id) {
-        this.season_id = season_id;
     }
 }

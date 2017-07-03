@@ -3,13 +3,17 @@ package model;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name="tvshow")
 @PrimaryKeyJoinColumn(name="show_id", referencedColumnName = "id_media")
 public class Show extends Media implements Serializable{
 
+    @Column(name = "show_id", nullable = false, insertable = false, updatable = false)
+    private int show_id;
     @Column(name = "slug")
     private String slug;
     @Column(name = "imdb")
@@ -40,8 +44,17 @@ public class Show extends Media implements Serializable{
     private int aired_episodes;
     @Column(name = "seasons")
     private int seasons;
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "show")
-    private List<Season> seasonsList = new ArrayList<>();
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "tvshow_season", joinColumns = {@JoinColumn (name = "show_id")},inverseJoinColumns = { @JoinColumn (name = "season_id")})
+    private Set<Season> seasonsList = new HashSet<>();
+
+    public int getShow_id() {
+        return show_id;
+    }
+
+    public void setShow_id(int show_id) {
+        this.show_id = show_id;
+    }
 
     public String getSlug() {
         return slug;
@@ -163,11 +176,11 @@ public class Show extends Media implements Serializable{
         this.seasons = seasons;
     }
 
-    public List<Season> getSeasonsList() {
+    public Set<Season> getSeasonsList() {
         return seasonsList;
     }
 
-    public void setSeasonsList(List<Season> seasonsList) {
+    public void setSeasonsList(Set<Season> seasonsList) {
         this.seasonsList = seasonsList;
     }
 }
