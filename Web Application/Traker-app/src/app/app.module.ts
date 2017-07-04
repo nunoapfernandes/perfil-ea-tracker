@@ -1,5 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpModule } from '@angular/http';
+
 
 import { AppComponent } from './app.component';
 import { NavBarComponent } from './shared/navbar/app.navbar.component'
@@ -18,6 +20,11 @@ import { SeasonGridComponent } from './elements/season-grid/season-grid.componen
 
 import { AppRoutingModule } from './app.routing.module';
 import {TvShowPage} from "./core/tvshow-page/tvshow-page.component";
+import {MediaGridShowComponent} from "./elements/mediagrid-show/mediagrid-show.component";
+import {CapitalizeFirstPipe} from "./pipes/capitalize-first-pipe";
+import {ShowsPageComponent} from "./core/shows-page/shows-page.component";
+import {MoviesPageComponent} from "./core/movies-page/movies-page.component";
+import {MediaGridMovieComponent} from "./elements/mediagrid-movie/mediagrid-movie.component";
 
 
 
@@ -36,11 +43,18 @@ import {TvShowPage} from "./core/tvshow-page/tvshow-page.component";
     SeasonPageComponent,
     InfoBoxComponent,
     SeasonGridComponent,
-    TvShowPage
+    TvShowPage,
+    ShowsPageComponent,
+    CapitalizeFirstPipe,
+    MediaGridShowComponent,
+    MoviesPageComponent,
+    ShowsPageComponent,
+    MediaGridMovieComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

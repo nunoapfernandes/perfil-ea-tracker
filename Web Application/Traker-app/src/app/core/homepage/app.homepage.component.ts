@@ -1,5 +1,5 @@
 
-import { Component } from '@angular/core';
+import { Component, OnInit, Input, Output, OnChanges, EventEmitter, trigger, state, style, animate, transition } from '@angular/core';
 
 @Component({
   selector: 'app-homepage',
@@ -9,4 +9,3 @@ import { Component } from '@angular/core';
 
 export class HomePageComponent {
 }
-

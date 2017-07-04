@@ -1,8 +1,9 @@
 
 <nav class="navbar navbar-default navbar-fixed-top">
-  <div class="container">
+  <div class="container row col-md-12">
+
     <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
+    <div class="navbar-header col-md-1">
       <button type="button" class="navbar-toggle collapsed"
           data-toggle="collapse"
           data-target="#navbar-collapse-main"
@@ -13,17 +14,33 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">Traker</a>
+      <a class="navbar-brand w-text" href="/">Traker</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div id="navbar-collapse-main" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav">
-        <li><a href="/season">TV Shows</a></li>
-        <li><a href="/movie">Movies</a></li>
+      <ul class="nav navbar-nav col-md-3">
+        <li><a class="w-text" href="/shows">TV Shows</a></li>
+        <li><a class="w-text" href="/movies ">Movies</a></li>
       </ul>
 
-      <ul class="nav navbar-nav navbar-right">
+      <div>
+        <div class="col-md-4">
+          <div class="flexsearch">
+            <div class="flexsearch--wrapper">
+              <form class="flexsearch--form" action="#">
+                <div class="flexsearch--input-wrapper has-feedback">
+                  <input class="flexsearch--input" type="search" placeholder="Search for Shows/Movies" style="margin-top: 10px;">
+                </div>
+                <input class="flexsearch--submit" type="submit" value="&#10140;" style="margin-top:5px;"/>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <ul class="nav navbar-nav navbar-right col-md-4">
         <!-- User controls on navbar -->
         <li>
           <div class="dropdown">
@@ -39,27 +56,14 @@
             </ul>
           </div>
         </li>
-        <li><a href="#">Avatar Placeholder</a></li>
+        <li><a class="w-text" href="#">Avatar Placeholder</a></li>
       </ul>
-
       <!-- Search Bar -->
     </div><!-- /.navbar-collapse -->
+
+
   </div><!-- /.container -->
 </nav>
 
 
-<div class="row">
-  <div class="col-md-8 col-md-offset-2">
-    <div class="flexsearch">
-      <div class="flexsearch--wrapper">
-        <form class="flexsearch--form" action="#">
-          <div class="flexsearch--input-wrapper has-feedback">
-            <input class="flexsearch--input" type="search" placeholder="Search for Shows/Movies">
-          </div>
-          <input class="flexsearch--submit" type="submit" value="&#10140;"/>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
 

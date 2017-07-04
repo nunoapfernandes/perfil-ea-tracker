@@ -1,7 +1,7 @@
 import { Genre } from './genre.model';
 
 export class Episode {
-    id:number;
+    id: number;
     title: string;
     episode_number: number;
 
@@ -11,7 +11,6 @@ export class Episode {
     air_date: string;
 
     genres: Genre[];
-
     rating: number;
     comments: number;
 

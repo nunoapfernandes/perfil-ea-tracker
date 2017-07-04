@@ -1,7 +1,7 @@
-import { Genre } from './genre.model'
+import { Genre } from './genre.model';
 
 export class Movie {
-    id:number;
+    id: number;
     title: string;
 
     release_date: Date;
@@ -17,7 +17,7 @@ export class Movie {
 
     tagline: string;
 
-    overview:string;
+    overview: string;
     trailer: string;
 
 }

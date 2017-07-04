@@ -12,12 +12,12 @@
 	margin: 0;
 	position: static;
 }
-	
+
 .flexsearch--form {
 	overflow: hidden;
 	position: relative;
 }
-	
+
 .flexsearch--input-wrapper {
 	padding: 0 66px 0 0; /* Right padding for submit button width */
 	overflow: hidden;
@@ -51,7 +51,7 @@
 	-webkit-appearance: none;
 	-moz-appearance: none;
 }
-	
+
 .flexsearch--submit {
   position: absolute;
 	right: 0;
@@ -76,7 +76,7 @@
 }
 
 .flexsearch--input:focus.flexsearch--submit {
- 	color: #333; 
+ 	color: #333;
 }
 
 .flexsearch--submit:hover {
@@ -85,14 +85,22 @@
 }
 
 ::-webkit-input-placeholder {
-	color: #888;  
+	color: #888;
 }
 
 input:-moz-placeholder {
   color: #888
 }
 
-
 .dropdown{
     margin-top: 15px
+}
+
+.navbar{
+  background-color: #151C12;
+}
+
+.w-text{
+  text-decoration: none !important;
+  color: white !important;
 }
