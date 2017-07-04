@@ -1,0 +1,77 @@
+<div class="tv_show_season_info">
+    <!-- Title element -->
+    <div class="tv_show_season_title">
+        <h3>{{title}}</h3>
+    </div>
+
+    <!-- Season links -->
+    <div class="row">
+        <div class="col-md-8">
+            <ul class="nav nav-tabs nav-justifieds">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Season 1</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Season 2</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Season 3</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Rating and comments counter -->
+    <div class="row">
+        <div class="col-md-4" style="float:right">
+            Comments: {{comments}}
+        </div>
+        <div class="col-md-4" style="float:right">
+            <strong>Rating: {{rating}}</strong>
+        </div>
+    </div>
+
+    <!-- Certification and genres -->
+    <div class="row">
+        <div class="col-md-4">
+            Certification: {{certification}}
+        </div>
+        <div class="col-md-6" style="float:right">
+            Genres: {{genres}}
+        </div>
+    </div>
+
+    <!-- runtime and total runtime -->
+    <div class="row">
+        <div class="col-md-4">
+            Runtime: {{runtime}}
+        </div>
+        <div class="col-md-6" style="float:right">
+            Total Runtime: {{total_runtime}}
+        </div>
+    </div>
+
+    <!-- Language and country -->
+    <div class="row">
+        <div class="col-md-4">
+            Language: {{language}}
+        </div>
+        <div class="col-md-6" style="float:right">
+            Country: {{country}}
+        </div>
+    </div>
+
+    <!-- Airs time, Premier date, Status-->
+    <div class="row">
+        <div class="col-md-4">
+            Airs: {{air_date}}
+        </div>
+        <div class="col-md-4">
+            Premiered: {{premiered}}
+        </div>
+    </div>
+
+    <div class="row" style="margin-top:40px">
+        {{overview}}
+    </div>
+</div>

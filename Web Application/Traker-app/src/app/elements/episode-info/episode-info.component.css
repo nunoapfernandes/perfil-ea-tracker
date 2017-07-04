@@ -1,0 +1,23 @@
+
+
+.equal {
+  display: flex;
+  display: -webkit-flex;
+  flex-wrap: wrap;
+}
+
+
+.row.flex-override {
+  display: -ms-flex;
+  display: -webkit-flex;
+  display: flex;
+  justify-content: space-around;
+}
+.row.flex-override > .vertical-align-center {
+  display: -ms-flex;
+  display: -webkit-flex;
+  display: flex;
+}
+.row.flex-override .vertical-align-center .valign-center {
+  align-self: center;
+}

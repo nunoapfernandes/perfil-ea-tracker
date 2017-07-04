@@ -1,0 +1,31 @@
+#registerDiv{
+  width:20%;
+  height:30%;
+  position: absolute;
+  top:60%;
+  left:40%;
+  /*margin-top: 50%;
+  margin-left: 50%;*/
+}
+
+#textDiv{
+  width:80%;
+  height:30%;
+  position: absolute;
+  top:20%;
+  left:10%;
+  /*margin-top: 50%;
+  margin-left: 50%;*/
+}
+
+.home-image{
+  height:720px;
+  width:1280px;
+}
+
+.welcomeMessage{
+  text-align: center;
+  color:white;
+  font-size:300%;
+  font-family:courier;
+}

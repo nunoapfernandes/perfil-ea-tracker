@@ -1,0 +1,76 @@
+<div class="episodeinfo">
+    <!-- Title element -->
+    <div class="episode">
+        <h3>{{title}}</h3>
+        <h4>{{episode_number}}</h4>
+    </div>
+
+    <!-- Episode -->
+    <div class="row equal">
+        <div class="col-md-1">
+            Episode:
+        </div>
+        <div class="col-md-8">
+            <ul class="nav nav-tabs nav-justifieds">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">1</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">2</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">3</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Rating and comments counter -->
+    <div class="row">
+        <div class="col-md-4" style="float:right">
+            Comments: {{comments}}
+        </div>
+        <div class="col-md-4" style="float:right">
+            <strong>Rating: {{rating}}</strong>
+        </div>
+    </div>
+
+    <!-- Certification and genres -->
+    <div class="row">
+        <div class="col-md-4">
+            Certification: {{certification}}
+        </div>
+        <div class="col-md-6" style="float:right">
+            Genres: {{genres}}
+        </div>
+    </div>
+
+    <!-- runtime and air date-->
+    <div class="row">
+        <div class="col-md-4">
+            Runtime: {{runtime}}
+        </div>
+        <div class="col-md-4">
+            Air: {{air_date}}
+        </div>
+    </div>
+
+    <!-- Language and country -->
+    <div class="row">
+        <div class="col-md-4">
+            Language: {{language}}
+        </div>
+        <div class="col-md-4">
+            Country: {{country}}
+        </div>
+    </div>
+
+    <div class="row" style="margin-top:40px">
+        {{overview}}
+    </div>
+    <div class="row" style="margin-top:25px">
+        <div class="col-md-2">
+            Trailer: {{trailer}}
+        </div>
+    </div>
+</div>

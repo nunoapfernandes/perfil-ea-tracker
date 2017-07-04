@@ -1,0 +1,10 @@
+
+
+.fixed{
+  height:100%;
+  position:fixed;
+}
+#fixed-box{
+  height: 100%;
+  position: fixed;
+}

@@ -1,0 +1,44 @@
+<div class="movie_info">
+    <!-- Title row -->
+    <div class="movie_title row">
+        <h3>{{title}}</h3>
+    </div>
+
+    <!-- Rating and comments counter -->
+    <div class="row">
+        <div class="col-md-4" style="float:right">
+            Comments: {{comments}}
+        </div>
+        <div class="col-md-4" style="float:right">
+            <strong>Rating: {{rating}}</strong>
+        </div>
+    </div>
+
+    <!-- Certification and genres -->
+    <div class="row">
+        <div class="col-md-4">
+            Certification: {{certification}}
+        </div>
+        <div class="col-md-6" style="float:right">
+            Genres: {{genres}}
+        </div>
+    </div>
+
+    <!-- Released date, Runtime, Language-->
+    <div class="row">
+        <div class="col-md-4">
+            Release date: {{release_date}}
+        </div>
+        <div class="col-md-4">
+            Runtime: {{runtime}}
+        </div>
+        <div class="col-md-4">
+            Language: {{language}}
+        </div>
+    </div>
+
+    <div class="row" style="margin-top:40px">
+        {{overview}}
+    </div>
+
+</div>
