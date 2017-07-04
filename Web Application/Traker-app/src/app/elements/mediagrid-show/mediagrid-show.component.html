@@ -11,7 +11,7 @@
 
         <div *ngIf="even" ngClass="card-container left-card">
           <div ngClass="image-container">
-            <a [routerLink]="[response[i].id_media]"><img src="https://image.tmdb.org/t/p/original/{{response[i].image_path}}" style="width:100%; height:100%" ></a>
+            <a [routerLink]="[response[i].id_media]"><img src="https://image.tmdb.org/t/p/w500_and_h281_bestv2/{{response[i].image_path}}" style="width:100%; height:100%" ></a>
           </div>
           <div ngClass="content-container">
             <p ngClass="upper-p">
@@ -20,14 +20,14 @@
             </p>
             <p ngClass="lower-p">
               <span ngClass="genre-container" *ngFor="let genre of response[i].genres; let h = index">{{genre.genre | capitalizeFirst}}<u *ngIf=" h != response[i].genres.length - 1" style="text-decoration: none">,&nbsp;</u></span>
-              <span ngClass="date-container">{{response[i].aired_day}}</span>
+              <span ngClass="date-container">{{response[i].aired_day}}<u style="text-decoration: none"> - </u>{{response[i].aired_time}}</span>
             </p>
           </div>
         </div>
 
         <div *ngIf="even && response[i+1]" ngClass="card-container right-card">
           <div ngClass="image-container">
-            <a [routerLink]="[response[i+1].id_media]"><img src="https://image.tmdb.org/t/p/original/{{response[i+1].image_path}}" style="width:100%; height:100%" ></a>
+            <a [routerLink]="[response[i+1].id_media]"><img src="https://image.tmdb.org/t/p/w500_and_h281_bestv2/{{response[i+1].image_path}}" style="width:100%; height:100%" ></a>
           </div>
           <div ngClass="content-container">
             <p ngClass="upper-p">
@@ -36,7 +36,7 @@
             </p>
             <p ngClass="lower-p">
               <span ngClass="genre-container" *ngFor="let genre of response[i+1].genres; let t = index">{{genre.genre | capitalizeFirst}}<u *ngIf=" t != response[i+1].genres.length - 1" style="text-decoration: none">,&nbsp;</u></span>
-              <span ngClass="date-container">{{response[i+1].aired_day}}</span>
+              <span ngClass="date-container">{{response[i+1].aired_day}}<u style="text-decoration: none"> - </u>{{response[i+1].aired_time}}</span>
             </p>
           </div>
         </div>

@@ -6,11 +6,13 @@ import { MoviePageComponent } from './core/movie-page/movie-page.component';
 import {HomePageComponent} from "./core/homepage/app.homepage.component";
 import {ShowsPageComponent} from "./core/shows-page/shows-page.component";
 import {MoviesPageComponent} from "./core/movies-page/movies-page.component";
+import {TvShowPage} from "./core/tvshow-page/tvshow-page.component";
 
 const routes: Routes = [
   { path: 'movies', component: MoviesPageComponent },
   { path: 'shows', component: ShowsPageComponent },
   { path: 'movies/:id', component: MoviePageComponent },
+  { path: 'shows/:id', component: TvShowPage },
   { path: 'season', component: SeasonPageComponent },
   { path: '', component: HomePageComponent },
 ];

@@ -26,8 +26,6 @@ import {ShowsPageComponent} from "./core/shows-page/shows-page.component";
 import {MoviesPageComponent} from "./core/movies-page/movies-page.component";
 import {MediaGridMovieComponent} from "./elements/mediagrid-movie/mediagrid-movie.component";
 import {CapitalizeAllPipe} from "./pipes/capitalize-all-pipe";
-import {UserOverviewComponent} from './elements/user-overview/user-overview.component';
-import {UserWatchListComponent} from './elements/user-watchlist/user-watchlist.component';
 
 
 
@@ -53,10 +51,7 @@ import {UserWatchListComponent} from './elements/user-watchlist/user-watchlist.c
     MediaGridShowComponent,
     MoviesPageComponent,
     ShowsPageComponent,
-    MediaGridMovieComponent,
-	MediaGridMovieComponent,
-    UserOverviewComponent,
-    UserWatchListComponent,
+    MediaGridMovieComponent
   ],
   imports: [
     BrowserModule,

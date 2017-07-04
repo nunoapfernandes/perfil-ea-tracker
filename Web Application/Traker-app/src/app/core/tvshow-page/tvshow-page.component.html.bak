@@ -2,16 +2,16 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-md-2">
-      <app-info-box id="fixed-box" [media]=response2></app-info-box>
+    <div class="col-md-2" id="fixed-box">
+      <app-info-box [media]=response2></app-info-box>
     </div>
     <div class="col-md-8">
       <app-tv-show-info [media]=response2></app-tv-show-info>
-      <app-season-grid [media]=response2></app-season-grid>
+      <app-season-grid ></app-season-grid>
     </div>
 
     <div class="col-md-2">
-      <app-actions-box id="fixed-actions"></app-actions-box>
+      <app-actions-box id="fixed-actions" [user]="user"></app-actions-box>
     </div>
   </div>
 </div>

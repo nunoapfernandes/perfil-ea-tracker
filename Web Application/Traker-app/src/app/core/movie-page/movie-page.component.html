@@ -1,12 +1,12 @@
 <div style="height: 65px"></div>
 
 <div class="container">
-  <div class="row">
-      <div class="col-md-2" id="fixed-box">
-        <app-info-box></app-info-box>
+  <div class="row" style="">
+      <div class="col-md-2">
+        <app-info-box  id="fixed-box" [media]=response2></app-info-box>
       </div>
-    <div class="col-md-8 col-md-offset-2">
-      <app-movie-info></app-movie-info>
+    <div class="col-md-8">
+      <app-movie-info [media]=response2></app-movie-info>
     </div>
 
     <div class="col-md-2">

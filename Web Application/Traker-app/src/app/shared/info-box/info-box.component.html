@@ -1,21 +1,24 @@
+<div class="container">
+  <div style="margin-top: 7.5%; border-left: 0px !important;">
+    <img src="https://image.tmdb.org/t/p/w500/{{media.image_path}}" alt="Poster" height="200" width="160">
 
-<div style="margin-top: 70%">
-  <img src="../../../assets/logan_poster.jpg" alt="Poster" height="200" width="160">
+    <div class="container" id="boxed-content-info">
+      <div class="row">
+        <span>Rating Trakt: </span><span>{{media.rating_trakt}}</span>
+      </div>
+      <div class="row">
+        <a href="{{media.trailer}}" target="_blank"><img src="../../../assets/youtube-icon.png" alt="YouTube" height="25" width="25"></a>
+        <a href="{{media.trailer}}" style="color:black" target="_blank">Trailer</a><br>
+        <a href="{{media.homepage}}" style="color:black" target="_blank">Movie Website</a><br>
+      </div>
+      <div class="row">
+        <span>Link to other sources:</span>
+      </div>
+      <div class="row">
+        <p style="margin:0"><span>TMDB : </span><span>{{media.tmdb}}</span></p>
+        <p style="margin:0"><span>IMDB : </span><span>{{media.imdb}}</span></p>
+      </div>
+    </div>
 
-  <div class="container" id="boxed-content-info" style="border-color: #0000cc">
-    <div class="row">
-      Rating Trakt: {{rating_trakt}}
-    </div>
-    <div class="row">
-      <img src="../../../assets/youtube-icon.png" alt="YouTube" height="25" width="25">
-      Trailer<br>
-    </div>
-    <div class="row">
-      Link to other sources:
-    </div>
-    <div class="row">
-      <a href="#">TMDB</a>
-    </div>
   </div>
-
 </div>

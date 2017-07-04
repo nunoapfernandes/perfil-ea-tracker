@@ -8,4 +8,6 @@
 #fixed-box {
   height: 100%;
   position: fixed;
+  left: 3%;
+
 }

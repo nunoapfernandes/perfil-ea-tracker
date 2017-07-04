@@ -1,44 +1,46 @@
-<div class="movie_info">
+<div class="movie_info" style="margin-top: 7.5%;">
     <!-- Title row -->
     <div class="movie_title row">
-        <h3>{{title}}</h3>
+        <h3>{{media.title}}</h3>
     </div>
+
 
     <!-- Rating and comments counter -->
     <div class="row">
-        <div class="col-md-4" style="float:right">
-            Comments: {{comments}}
-        </div>
-        <div class="col-md-4" style="float:right">
-            <strong>Rating: {{rating}}</strong>
-        </div>
+      <div class="col-md-4" style="float:left">
+        <strong><span>Rating: </span><span>{{media.rating_trakt}}</span></strong>
+      </div>
+      <div class="col-md-4">
+        <span>Release date: </span><span>{{media.released | date:'yMd'}}</span>
+      </div>
+      <div class="col-md-4" style="float:left">
+        <span>Comments: </span><span>10</span>
+      </div>
     </div>
 
     <!-- Certification and genres -->
     <div class="row">
-        <div class="col-md-4">
-            Certification: {{certification}}
-        </div>
-        <div class="col-md-6" style="float:right">
-            Genres: {{genres}}
+      <div class="col-md-4" style="float: left;">
+        <span>Runtime: </span><span>{{media.runtime}}</span>
+      </div>
+      <div class="col-md-4">
+        <span>Language: </span><span>{{media.language  | capitalizeAll}}</span>
+      </div>
+        <div class="col-md-4" style="float: right;">
+            Certification: {{media.certification}}
         </div>
     </div>
 
-    <!-- Released date, Runtime, Language-->
+  <!-- Released date, Runtime, Language-->
     <div class="row">
-        <div class="col-md-4">
-            Release date: {{release_date}}
-        </div>
-        <div class="col-md-4">
-            Runtime: {{runtime}}
-        </div>
-        <div class="col-md-4">
-            Language: {{language}}
-        </div>
+      <div class="col-md-12" style="float:right">
+        <p><span><b>Genres: </b></span><span *ngFor="let genre of media.genres; let h = index">{{genre.genre | capitalizeFirst}}<u *ngIf=" h != media.genres.length - 1" style="text-decoration: none">,&nbsp;</u></span>
+        </p>
+      </div>
     </div>
 
     <div class="row" style="margin-top:40px">
-        {{overview}}
+      {{media.overview}}
     </div>
 
 </div>

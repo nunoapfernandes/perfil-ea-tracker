@@ -1,0 +1,33 @@
+
+
+
+<div class="season-grid">
+    <div class="row">
+      <div class="col-md-2">
+        <h3>Seasons</h3>
+      </div>
+      <div class="col-md-2 col-md-offset-6">
+        asdasdas
+      </div>
+    </div>
+    <div class="row imagetiles">
+      <div class="col-md-3">
+        <img src="../../../assets/got_poster4.jpg" class="img-responsive">
+      </div>
+      <div class="col-md-3">
+        <img src="../../../assets/got_poster3.jpg" class="img-responsive">
+      </div>
+      <div class="col-md-3">
+        <img src="../../../assets/got_poster2.jpg" class="img-responsive">
+      </div>
+      <div class="col-md-3">
+        <img src="../../../assets/got_poster5.jpg" class="img-responsive">
+      </div>
+    </div>
+</div>
+
+<div *ngFor="let test of range(num); let odd = odd; let even = even">
+  <div class="row col-md-6" *ngIf="odd">odd</div>
+  <div class="col-md-6" *ngIf="even">even</div>
+</div>
+

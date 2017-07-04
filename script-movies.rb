@@ -64,7 +64,7 @@ module Trakt
 				if http_code == 200
 					data = JSON.parse(response)
 					print data
-					image_path = data["poster_path"]
+					image_path = data["backdrop_path"]
 				else
 					image_path = nil
 				end
