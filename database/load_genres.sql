@@ -35,6 +35,7 @@ INSERT INTO genre(genre) VALUES ('soap');
 INSERT INTO genre(genre) VALUES ('special-interest');
 INSERT INTO genre(genre) VALUES ('sporting-event');
 INSERT INTO genre(genre) VALUES ('sports');
+INSERT INTO genre(genre) VALUES ('superhero');
 INSERT INTO genre(genre) VALUES ('suspense');
 INSERT INTO genre(genre) VALUES ('talk-show');
 INSERT INTO genre(genre) VALUES ('thriller');
