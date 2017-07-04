@@ -1,7 +1,5 @@
 
 
-export class genre{
-    name: string;
-
-    
+export class Genre {
+  name: string;
 }

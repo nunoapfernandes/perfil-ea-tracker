@@ -1,6 +1,6 @@
-import { genre } from './genre.model'
+import { Genre } from './genre.model'
 
-export class movie {
+export class Movie {
     id:number;
     title: string;
 
@@ -13,7 +13,7 @@ export class movie {
     certification: string;
     language: string;
 
-    genres: genre[];
+    genres: Genre[];
 
     tagline: string;
 

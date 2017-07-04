@@ -1,5 +1,4 @@
 
-
 import { Component } from '@angular/core';
 
 @Component({
@@ -8,7 +7,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./episode-info.component.css']
 })
 
-export class EpisodeInfoComponent {
-  title = "asdasd";
-  episode = 1;
+export class EpisodePageComponent {
+
 }

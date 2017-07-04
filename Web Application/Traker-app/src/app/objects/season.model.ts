@@ -1,4 +1,4 @@
-import { genre } from './genre.model';
+import { Genre } from './genre.model';
 
 
 
@@ -6,13 +6,13 @@ export class Season{
     id:number;
     title: string;
     season_number: number;
-    
+
     certification: string;
     runtime: number;
     language: string;
     air_date: string;
 
-    genres: genre[];
+    genres: Genre[];
     episodes: number;
 
     rating: number;

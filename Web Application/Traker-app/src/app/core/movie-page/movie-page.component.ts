@@ -1,6 +1,7 @@
 
 
-import {Component } from '@angular/core';
+import { Component } from '@angular/core';
+import { Genre } from '../../objects/genre.model'
 
 import { User } from '../../objects/user.model'
 
@@ -17,7 +18,7 @@ export class MoviePageComponent {
     id: 1234,
     username:"teste",
     avatar: "asdasda"
-  }
+  };
 
 
 }

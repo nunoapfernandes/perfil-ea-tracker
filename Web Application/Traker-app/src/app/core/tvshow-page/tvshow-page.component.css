@@ -1,10 +1,9 @@
-
-
-.fixed{
+#fixed-actions {
   height:100%;
   position:fixed;
 }
-#fixed-box{
+
+#fixed-box {
   height: 100%;
   position: fixed;
 }

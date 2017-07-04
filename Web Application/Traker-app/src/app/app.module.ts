@@ -12,9 +12,12 @@ import { MoviePageComponent } from './core/movie-page/movie-page.component'
 import { MovieInfoComponent } from './elements/movie-info/movie-info.component'
 import { ActionsBoxComponent } from './shared/actions-box/actions-box.component'
 import { SeasonPageComponent } from './core/season-page/season-page.component'
+import { InfoBoxComponent } from './shared/info-box/info-box.component'
+import { SeasonGridComponent } from './elements/season-grid/season-grid.component'
 
 
 import { AppRoutingModule } from './app.routing.module';
+import {TvShowPage} from "./core/tvshow-page/tvshow-page.component";
 
 
 
@@ -30,7 +33,10 @@ import { AppRoutingModule } from './app.routing.module';
     MoviePageComponent,
     MovieInfoComponent,
     ActionsBoxComponent,
-    SeasonPageComponent
+    SeasonPageComponent,
+    InfoBoxComponent,
+    SeasonGridComponent,
+    TvShowPage
   ],
   imports: [
     BrowserModule,

@@ -8,7 +8,7 @@ import { Component } from '@angular/core';
 })
 
 export class TvShowInfoComponent {
-    title = "Teste movie info";
+    title = "Test Show Page";
     overview = `A Igreja Matriz de Trindade, também conhecida como Igreja Matriz 
     do Divino Pai Eterno, é uma igreja católica localizada na cidade brasileira de Trindade, em
      Goiás. Foi inaugurada em 8 de setembro de 1912 pelo missionário redentorista Antão Jorge e considerada
