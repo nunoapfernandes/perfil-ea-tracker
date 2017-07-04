@@ -18,6 +18,8 @@ export class MediaGridMovieComponent {
 
   constructor(private httpService: HttpService) {
     this.httpService.getMovies().subscribe(data => console.log(this.response = data));
+
+    //console.log(this.response["title"]);
     /*
     http.get('http://localhost:8080/WebApp/home2')
       .map(response => this.response = response.json())

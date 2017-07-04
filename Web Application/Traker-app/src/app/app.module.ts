@@ -25,6 +25,7 @@ import {CapitalizeFirstPipe} from "./pipes/capitalize-first-pipe";
 import {ShowsPageComponent} from "./core/shows-page/shows-page.component";
 import {MoviesPageComponent} from "./core/movies-page/movies-page.component";
 import {MediaGridMovieComponent} from "./elements/mediagrid-movie/mediagrid-movie.component";
+import {CapitalizeAllPipe} from "./pipes/capitalize-all-pipe";
 
 
 
@@ -46,6 +47,7 @@ import {MediaGridMovieComponent} from "./elements/mediagrid-movie/mediagrid-movi
     TvShowPage,
     ShowsPageComponent,
     CapitalizeFirstPipe,
+    CapitalizeAllPipe,
     MediaGridShowComponent,
     MoviesPageComponent,
     ShowsPageComponent,

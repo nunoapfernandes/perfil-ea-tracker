@@ -12,10 +12,8 @@ export class HttpService {
   ) {}
 
   getMovies() {
-    return this.http.get('http://localhost:8080/WebApp/home2')
+    return this.http.get('http://localhost:8080/WebApp/movies')
       .map((res: Response) => res.json());
-    /*return this.http.get('http://localhost:8080/WebApp/movies')
-      .map((res: Response) => res.json());*/
   }
 
   getMovie(movieid) {

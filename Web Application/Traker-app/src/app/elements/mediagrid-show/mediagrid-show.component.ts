@@ -17,7 +17,7 @@ export class MediaGridShowComponent {
   response: Object = {};
 
   constructor(private httpService: HttpService) {
-    this.httpService.getMovies().subscribe(data => console.log(this.response = data));
+    this.httpService.getShows().subscribe(data => console.log(this.response = data));
   }
 
   range = (value) => {

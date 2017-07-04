@@ -18,7 +18,7 @@ module Trakt
 		end
 
 		def get_trending()
-			@request = 'https://api.trakt.tv/shows/trending?limit=1'
+			@request = 'https://api.trakt.tv/shows/trending?limit=5'
 			@response = RestClient.get @request, @headers
 			@slugs = []
 			json = JSON.parse(@response)
@@ -119,7 +119,7 @@ module Trakt
 				http_code = response.code
 				if http_code == 200
 					data = JSON.parse(response)
-					image_path = data["poster_path"]
+					image_path = data["backdrop_path"]
 				else
 					image_path = nil
 				end
