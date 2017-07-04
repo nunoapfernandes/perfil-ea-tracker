@@ -1,6 +1,6 @@
 
 
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
 import 'rxjs/Rx'
 
 @Component({
@@ -10,12 +10,9 @@ import 'rxjs/Rx'
 })
 
 export class SeasonGridComponent {
-  num = 8;
-  range = (value) => {
-    let a = [];
-    for(let i = 0; i < value; ++i) {
-      a.push(i)
-    }
-    return a;
+  @Input()
+  media: Object = {};
+
+  constructor() {
   }
 }

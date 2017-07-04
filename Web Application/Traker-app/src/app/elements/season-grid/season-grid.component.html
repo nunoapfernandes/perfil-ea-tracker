@@ -20,16 +20,17 @@
           </div>
         </div>
       </div>
-      <div class="row imagegrid">
-        <a href="#">
-          <figure>
-            <img src="../../../assets/got_poster2.jpg">
-            <figcaption>
-              Season 2 <br>
-              10 Episodes
-            </figcaption>
-          </figure>
-        </a>
+
+
+    <div class="row imagegrid" style="margin-left: 30px">
+          <a href="" *ngFor="let season of media.seasonsList">
+            <figure>
+              <img src="https://image.tmdb.org/t/p/original/{{season.image_path}}">
+              <figcaption style="color: black; text-align: center;">Season {{season.number}} <br>
+                {{season.episodes}} Episodes
+              </figcaption>
+            </figure>
+          </a>
       </div>
   </div>
   </div>

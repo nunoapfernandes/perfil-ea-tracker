@@ -1,66 +1,67 @@
 
-<div class="container col-md-12">
+<div class="container col-md-12" style="margin-top: 7.5%;">
   <div class="tv_show_info">
       <!-- Title element -->
       <div class="tv_show_title row">
-          <h3>{{title}}</h3>
+          <h3>{{media.title}}</h3>
       </div>
 
       <!-- Rating and comments counter -->
       <div class="row">
+        <div class="col-md-4" style="float:left">
+          <strong><span>Rating: </span><span>{{media.rating_trakt}}</span></strong>
+        </div>
+        <div class="col-md-4">
+          <span>Network: </span><span>{{media.network}}</span>
+        </div>
           <div class="col-md-4" style="float:right">
-              Comments: {{comments}}
+              <span>Comments: </span><span>10</span>
           </div>
-          <div class="col-md-4" style="float:right">
-              <strong>Rating: {{rating}}</strong>
-          </div>
+
       </div>
 
       <!-- Certification and genres -->
       <div class="row">
           <div class="col-md-4">
-              Certification: {{certification}}
+            <span>Runtime: </span><span>{{media.runtime}}</span>
           </div>
-          <div class="col-md-6" style="float:right">
-              Genres: {{genres}}
+          <div class="col-md-4">
+            <span>Premiered: </span><span>{{media.released | date}}</span>
           </div>
+        <div class="col-md-4">
+          <span>Status: </span><span>{{media.status | capitalizeFirst}}</span>
+        </div>
       </div>
 
       <!-- runtime and total runtime -->
       <div class="row">
           <div class="col-md-4">
-              Runtime: {{runtime}}
+            <span>Aired Episodes: </span><span>{{media.aired_episodes}}</span>
           </div>
-          <div class="col-md-6" style="float:right">
-              Total Runtime: {{total_runtime}}
-          </div>
+        <div class="col-md-4">
+          <span>Language: </span><span>{{media.language | capitalizeAll}}</span>
+        </div>
+        <div class="col-md-4" style="float:right">
+          <span>Country: </span><span>{{media.country | capitalizeAll}}</span>
+        </div>
+
       </div>
 
-      <!-- Language and country -->
-      <div class="row">
-          <div class="col-md-4">
-              Language: {{language}}
-          </div>
-          <div class="col-md-6" style="float:right">
-              Country: {{country}}
-          </div>
-      </div>
+      <div class="row" style="height:20px;"></div>
+
 
       <!-- Airs time, Premier date, Status-->
       <div class="row">
-          <div class="col-md-4">
-              Airs: {{air_date}}
-          </div>
-          <div class="col-md-4">
-              Premiered: {{premiered}}
-          </div>
-          <div class="col-md-4">
-              Status: {{status}}
-          </div>
+        <div class="col-md-6" >
+          <p><span><b>Genres: </b></span><span *ngFor="let genre of media.genres; let h = index">{{genre.genre | capitalizeFirst}}<u *ngIf=" h != media.genres.length - 1" style="text-decoration: none">,&nbsp;</u></span>
+        </div>
+        <div class="col-md-6" style="float:right">
+          <span>Airs: </span><span>{{media.aired_day}} - {{media.aired_time}} - {{media.aired_timezone}}</span>
+        </div>
       </div>
 
       <div class="row" style="margin-top:40px">
-          {{overview}}
+        <span>{{media.overview}}</span>
       </div>
   </div>
 </div>
