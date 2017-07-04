@@ -1,8 +1,8 @@
-<div class="container">
-<div style="margin-top: 17.5%">
+
+<div style="margin-top: 70%">
   <img src="https://image.tmdb.org/t/p/w500/{{media.image_path}}" alt="Poster" height="200" width="160">
 
-  <div class="container" id="boxed-content-info">
+  <div class="container" id="boxed-content-info" style="border-color: #0000cc">
     <div class="row">
       <span>Rating Trakt: </span><span>{{media.rating_trakt}}</span>
     </div>
@@ -20,5 +20,4 @@
     </div>
   </div>
 
-</div>
 </div>

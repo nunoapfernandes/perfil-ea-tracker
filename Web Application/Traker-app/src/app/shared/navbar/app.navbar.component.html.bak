@@ -50,10 +50,9 @@
             </button>
             <!-- Data in username placeholder -->
             <ul class="dropdown-menu" aria-labelledby="user_dropdown_menu">
-              <li><a href="#">DashBoards</a></li>
-              <li><a href="#">Profile</a></li>
+              <li><a href="#">Action Placeholder</a></li>
               <li role="separator" class="divider"></li>
-              <li><a href="#">Logout</a></li>
+              <li><a href="#">Action placeholder #2</a></li>
             </ul>
           </div>
         </li>
@@ -61,6 +60,8 @@
       </ul>
       <!-- Search Bar -->
     </div><!-- /.navbar-collapse -->
+
+
   </div><!-- /.container -->
 </nav>
 
