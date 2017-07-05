@@ -64,8 +64,10 @@ module Trakt
 				if http_code == 200
 					data = JSON.parse(response)
 					image_path = data["backdrop_path"]
+                    poster_path = data["poster_path"]
 				else
 					image_path = nil
+                    poster_path = nil
 				end
 			rescue => e
 				e.response
@@ -73,9 +75,9 @@ module Trakt
 			
 			genre_ids = get_genre_ids(genres,id)
 			@client.prepare('media'+id.to_s,"INSERT INTO media(title,tmdb,overview,rating_trakt,released,image_path,category)
-												VALUES($1,$2,$3,$4,$5,$6,$7) returning id_media")
+												VALUES($1,$2,$3,$4,$5,$6,$7,$8) returning id_media")
 
-			result = @client.exec_prepared('media'+id.to_s,[title,tmdb,overview,rating,released,image_path,1])
+			result = @client.exec_prepared('media'+id.to_s,[title,tmdb,overview,rating,released,image_path,poster_path,1])
 			id_media = result.first["id_media"]
 			
 		
