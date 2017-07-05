@@ -1,6 +1,4 @@
-/**
- * Created by RicardoFerreira on 04/07/2017.
- */
+
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import 'rxjs/add/operator/map';
@@ -12,32 +10,32 @@ export class HttpService {
   ) {}
 
   getMovies() {
-    return this.http.get('http://localhost:8080/WebApp/movies')
+    return this.http.get('http://localhost:80/movies')
       .map((res: Response) => res.json());
   }
 
   getMovie(movieid) {
-    return this.http.get('http://localhost:8080/WebApp/movies/' + movieid)
+    return this.http.get('http://localhost:80/movies/' + movieid)
       .map((res: Response) => res.json());
   }
 
   getShows() {
-    return this.http.get('http://localhost:8080/WebApp/shows')
+    return this.http.get('http://localhost:80/shows')
       .map((res: Response) => res.json());
   }
 
   getShow(showid) {
-    return this.http.get('http://localhost:8080/WebApp/shows/' + showid)
+    return this.http.get('http://localhost:80/shows/' + showid)
       .map((res: Response) => res.json());
   }
 
   getSeason(showid, seasonNumber) {
-    return this.http.get('http://localhost:8080/WebApp/shows/' + showid + '/seasons/' + seasonNumber)
+    return this.http.get('http://localhost:80/shows/' + showid + '/seasons/' + seasonNumber)
       .map((res: Response) => res.json());
   }
 
   getUser(userid) {
-    return this.http.get('http://localhost:8080/WebApp/user/' + userid)
+    return this.http.get('http://localhost:80/user/' + userid)
       .map((res: Response) => res.json());
   }
 
